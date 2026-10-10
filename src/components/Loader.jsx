@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence, animate } from "motion/react";
+import { Wordmark } from "./Icons";
 
 export default function Loader({ onDone }) {
   const [n, setN] = useState(0);
@@ -12,8 +13,9 @@ export default function Loader({ onDone }) {
       onUpdate: (v) => setN(Math.round(v)),
       onComplete: () => setTimeout(() => setShow(false), 150),
     });
-    return () => c.stop();
-  }, []);
+    const safety = setTimeout(onDone, 3500);
+    return () => { c.stop(); clearTimeout(safety); };
+  }, [onDone]);
 
   return (
     <AnimatePresence onExitComplete={onDone}>
@@ -24,7 +26,7 @@ export default function Loader({ onDone }) {
           exit={{ clipPath: "inset(0 0 100% 0)" }}
           transition={{ duration: 0.9, ease: [0.76, 0, 0.24, 1] }}
         >
-          <span className="label text-paper/60">Neutronos</span>
+          <Wordmark className="mb-3 w-28 text-paper/70 md:w-36" />
           <span className="text-[22vw] font-light leading-none tracking-[-0.06em] tabular-nums md:text-[12vw]">
             {n}
           </span>

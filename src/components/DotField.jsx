@@ -28,7 +28,7 @@ const fragment = [
   "void main() {",
   "  vec2 c = gl_PointCoord - 0.5;",
   "  if (length(c) > 0.5) discard;",
-  "  gl_FragColor = vec4(0.043, 0.043, 0.043, vAlpha);",
+  "  gl_FragColor = vec4(0.455, 0.082, 0.086, vAlpha);",
   "}",
 ].join("\n");
 

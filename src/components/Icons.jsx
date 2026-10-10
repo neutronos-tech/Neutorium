@@ -15,10 +15,22 @@ export function Mark({ className = "" }) {
   );
 }
 
+export function Wordmark({ className = "" }) {
+  return <span role="img" aria-label="Neutorium" className={"wordmark " + className} />;
+}
+
 export function Plus({ className = "" }) {
   return (
     <svg className={className} viewBox="0 0 20 20" fill="none" aria-hidden="true">
       <path d="M10 3v14M3 10h14" stroke="currentColor" strokeWidth="1.5" />
+    </svg>
+  );
+}
+
+export function Check({ className = "" }) {
+  return (
+    <svg className={className} viewBox="0 0 20 20" fill="none" aria-hidden="true">
+      <path d="M4 10.5l4 4 8-9" stroke="currentColor" strokeWidth="1.75" />
     </svg>
   );
 }

@@ -1,18 +1,18 @@
 import Lenis from "lenis";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 export const prefersReduced = () =>
-  typeof window !== "undefined" &&
-  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 let lenis = null;
 
 export function startLenis() {
   if (prefersReduced()) return null;
-  lenis = new Lenis({ duration: 1.1, smoothWheel: true });
+  lenis = new Lenis({ duration: 1.15, smoothWheel: true });
   lenis.on("scroll", ScrollTrigger.update);
   const raf = (time) => lenis.raf(time * 1000);
   gsap.ticker.add(raf);
@@ -29,9 +29,15 @@ export function stopScroll(stop) {
   stop ? lenis.stop() : lenis.start();
 }
 
-export function scrollTo(target) {
-  if (lenis) lenis.scrollTo(target, { duration: 1.4 });
-  else document.querySelector(target)?.scrollIntoView({ behavior: "smooth" });
+export function resetScroll() {
+  if (lenis) lenis.scrollTo(0, { immediate: true, force: true });
+  window.scrollTo(0, 0);
 }
 
-export { gsap, ScrollTrigger };
+export function scrollTo(target, offset = -80) {
+  if (lenis) return lenis.scrollTo(target, { duration: 1.3, offset });
+  if (typeof target === "number") return window.scrollTo({ top: target, behavior: "smooth" });
+  (typeof target === "string" ? document.querySelector(target) : target)?.scrollIntoView({ behavior: "smooth" });
+}
+
+export { gsap, ScrollTrigger, useGSAP };

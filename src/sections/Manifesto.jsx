@@ -2,7 +2,7 @@ import { useLayoutEffect, useRef } from "react";
 import { gsap, prefersReduced } from "../lib/smooth";
 
 const text =
-  "Most firms spread themselves across every market. We do the opposite. We study one industry deeply, choose fifteen companies inside it, and work as their partner until the research turns into results.";
+  "Most firms spread themselves across every market. We do the opposite. We study each industry deeply, choose fifteen companies inside it, and work as their partner until the research turns into results.";
 
 export default function Manifesto() {
   const ref = useRef(null);

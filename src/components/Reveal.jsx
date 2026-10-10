@@ -1,21 +1,23 @@
-import { motion } from "motion/react";
+import { useRef } from "react";
+import { motion, useInView } from "motion/react";
 
 const ease = [0.16, 1, 0.3, 1];
 
+// Visibility is measured on the heading itself: the masked lines are clipped by
+// overflow, so observing them directly never reports them as in view.
 export function Lines({ as: Tag = "h2", lines, className = "", delay = 0, play }) {
-  const trigger =
-    play === undefined
-      ? { whileInView: { y: "0%" }, viewport: { once: true, margin: "-10% 0px" } }
-      : { animate: play ? { y: "0%" } : undefined };
+  const ref = useRef(null);
+  const seen = useInView(ref, { once: true, amount: 0.1 });
+  const show = play === undefined ? seen : play;
 
   return (
-    <Tag className={className}>
+    <Tag ref={ref} className={className}>
       {lines.map((line, i) => (
         <span key={i} className="line-mask">
           <motion.span
             className="block"
             initial={{ y: "105%" }}
-            {...trigger}
+            animate={show ? { y: "0%" } : undefined}
             transition={{ duration: 1.1, ease, delay: delay + i * 0.08 }}
           >
             {line}

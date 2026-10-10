@@ -1,6 +1,9 @@
+import { Link } from "react-router-dom";
 import { motion, useMotionValue, useSpring } from "motion/react";
 
-export default function Magnetic({ href, children }) {
+const MotionLink = motion.create(Link);
+
+export default function Magnetic({ to, children }) {
   const x = useMotionValue(0);
   const y = useMotionValue(0);
   const sx = useSpring(x, { stiffness: 200, damping: 15, mass: 0.4 });
@@ -14,8 +17,8 @@ export default function Magnetic({ href, children }) {
   const leave = () => { x.set(0); y.set(0); };
 
   return (
-    <motion.a
-      href={href}
+    <MotionLink
+      to={to}
       onMouseMove={move}
       onMouseLeave={leave}
       style={{ x: sx, y: sy }}
@@ -23,6 +26,6 @@ export default function Magnetic({ href, children }) {
     >
       <span className="absolute inset-0 scale-0 rounded-full bg-paper transition-transform duration-700 ease-out-expo group-hover:scale-100" />
       <span className="relative transition-colors duration-500 group-hover:text-ink">{children}</span>
-    </motion.a>
+    </MotionLink>
   );
 }

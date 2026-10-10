@@ -1,43 +1,22 @@
 import { Lines, Rise } from "../components/Reveal";
 import { Arrow } from "../components/Icons";
-import { scrollTo } from "../lib/smooth";
+import { Link } from "react-router-dom";
+import { PACKAGES as tiers } from "../data/packages";
 
-const tiers = [
-  {
-    name: "Foundation",
-    tag: "For focused teams",
-    desc: "Research-backed direction and one core service stream, running every month.",
-    items: ["Quarterly industry research brief", "Strategy and positioning review", "One core service stream", "Monthly partner review"],
-  },
-  {
-    name: "Growth",
-    tag: "Most chosen",
-    featured: true,
-    desc: "A dedicated partner lead and multiple service streams moving in parallel.",
-    items: ["Everything in Foundation", "Monthly research sprints", "Up to three service streams", "Dedicated partner lead", "Shared performance dashboard"],
-  },
-  {
-    name: "Embedded",
-    tag: "Full partnership",
-    desc: "Our team works inside yours, with research and delivery fully integrated.",
-    items: ["Everything in Growth", "Team embedded in your workflow", "All service streams within scope", "Early access to our research", "Weekly leadership syncs"],
-  },
-];
-
-export default function Packages() {
+export default function Packages({ n = "04" }) {
   return (
     <section id="packages" className="wrap py-24 md:py-40">
       <div className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
         <div>
-          <p className="label text-mute">(04) Partner packages</p>
+          <p className="label text-mute">({n}) Partner packages</p>
           <Lines
             className="mt-6 text-[clamp(40px,5.6vw,92px)] font-medium leading-[0.95] tracking-[-0.05em]"
             lines={["Choose how deep", <span className="text-mute">we go together.</span>]}
           />
         </div>
         <p className="max-w-sm text-[15px] leading-relaxed text-ink/70">
-          Every package is a monthly subscription paid by the partner. Pricing is shared once
-          we confirm a seat is available in your industry.
+          Every package is a monthly engagement with a guarantee on every contracted asset. Fees are
+          shared on a short call, once we confirm a seat is open in your industry.
         </p>
       </div>
 
@@ -53,7 +32,7 @@ export default function Packages() {
                 }
               >
                 <div className="flex items-center justify-between">
-                  <span className={"label " + (f ? "text-paper/50" : "text-mute")}>{t.tag}</span>
+                  <span className={"label " + (f ? "text-paper/50" : "text-mute")}>{t.tag} · {t.term}</span>
                   <span className={"label " + (f ? "text-paper/50" : "text-mute")}>0{i + 1}</span>
                 </div>
                 <h3 className="mt-10 text-5xl tracking-[-0.045em]">{t.name}</h3>
@@ -66,11 +45,11 @@ export default function Packages() {
                     </li>
                   ))}
                 </ul>
-                <button
-                  onClick={() => scrollTo("#contact")}
+                <Link
+                  to={`/start?package=${t.id}`}
                   className={"group mt-auto flex items-center justify-between pt-10 text-left " + (f ? "text-paper" : "")}
                 >
-                  <span className="text-lg">Apply for a seat</span>
+                  <span className="text-lg">{t.id === "embedded" ? "Plan the long term" : "Apply for a seat"}</span>
                   <span
                     className={
                       "grid h-11 w-11 place-items-center rounded-full transition-transform duration-500 ease-out-expo group-hover:rotate-[-45deg] " +
@@ -79,7 +58,7 @@ export default function Packages() {
                   >
                     <Arrow className="h-4 w-4" />
                   </span>
-                </button>
+                </Link>
               </article>
             </Rise>
           );

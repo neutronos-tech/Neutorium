@@ -26,7 +26,7 @@ export default function Cursor() {
   }, []);
 
   return (
-    <div ref={ref} className="cursor pointer-events-none fixed left-0 top-0 z-[90] mix-blend-difference">
+    <div ref={ref} className="cursor pointer-events-none fixed left-0 top-0 z-[90]">
       <span className="cursor-dot" />
     </div>
   );

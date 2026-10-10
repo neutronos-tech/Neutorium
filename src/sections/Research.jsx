@@ -3,9 +3,9 @@ import { Arrow } from "../components/Icons";
 
 const areas = [
   ["Market intelligence", "We map where an industry is heading, who is moving, and why, before the shift becomes obvious."],
-  ["Opportunity discovery", "We find the openings worth attracting and filter out the noise that only looks like opportunity."],
-  ["Product & technology R&D", "We prototype, test, and validate ideas quickly, so decisions rest on evidence instead of opinion."],
-  ["People & behaviour", "We study the customers, operators, and decision makers who decide whether an idea succeeds."],
+  ["Competitor scans", "Five direct competitors benchmarked on website, content, channels and how easy they make it to inquire."],
+  ["Positioning & customer profile", "The position you can own, and a clear picture of the client you want more of."],
+  ["Baselines", "Inquiries, sources and response times recorded on Day 14, so every later result is measured honestly."],
 ];
 
 const loop = [
@@ -14,12 +14,12 @@ const loop = [
   ["Build", "Turn the best ones into real work."],
 ];
 
-export default function Research() {
+export default function Research({ n = "02" }) {
   return (
     <section id="research" className="wrap grid gap-16 py-24 md:grid-cols-12 md:py-40">
       <div className="md:col-span-5">
         <div className="md:sticky md:top-28">
-          <p className="label text-mute">(02) Research</p>
+          <p className="label text-mute">({n}) Research</p>
           <Lines
             className="mt-6 text-[clamp(40px,5.6vw,92px)] font-medium leading-[0.95] tracking-[-0.05em]"
             lines={["Curiosity,", <span className="text-mute">with a method.</span>]}

@@ -2,19 +2,19 @@ import { lazy, Suspense } from "react";
 import { motion } from "motion/react";
 import { Lines } from "../components/Reveal";
 import { scrollTo } from "../lib/smooth";
+import { useReady } from "../lib/ready";
 
 const DotField = lazy(() => import("../components/DotField"));
-const SplineScene = lazy(() => import("../components/SplineScene"));
-const SPLINE = import.meta.env.VITE_SPLINE_SCENE;
 const ease = [0.16, 1, 0.3, 1];
 
 const stats = [
-  ["15", "Partners per industry, never more"],
-  ["01", "Industry in focus at a time"],
+  ["15", "Partner seats per industry, never more"],
+  ["90", "Day system, every asset guaranteed"],
   ["R&D", "Research behind every engagement"],
 ];
 
-export default function Hero({ ready }) {
+export default function Hero() {
+  const ready = useReady();
   const fade = (delay) => ({
     initial: { opacity: 0, y: 16 },
     animate: ready ? { opacity: 1, y: 0 } : undefined,
@@ -25,14 +25,15 @@ export default function Hero({ ready }) {
     <section id="top" className="relative flex min-h-[100svh] flex-col overflow-hidden pt-28 md:pt-36">
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[60%] md:h-[70%]">
         <Suspense fallback={null}>
-          {SPLINE ? <SplineScene scene={SPLINE} /> : <DotField />}
+          <DotField />
         </Suspense>
         <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-paper to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-[55%] bg-gradient-to-t from-paper via-paper/90 to-transparent md:hidden" />
       </div>
 
       <div className="wrap relative flex flex-1 flex-col">
         <motion.div {...fade(0.1)} className="label flex justify-between text-mute">
-          <span>Research &amp; partnership studio</span>
+          <span>Digital authority &amp; client acquisition</span>
           <span>(2026)</span>
         </motion.div>
 
@@ -51,8 +52,8 @@ export default function Hero({ ready }) {
 
         <div className="mt-auto grid grid-cols-1 gap-10 pb-8 pt-16 md:grid-cols-12 md:items-end">
           <motion.p {...fade(0.5)} className="max-w-sm text-[15px] leading-relaxed text-ink/70 md:col-span-4">
-            Neutronos studies industries, finds the opportunities worth chasing, and partners
-            with fifteen companies at a time to turn them into results.
+            Neutorium studies industries, partners with fifteen companies inside each one, and
+            builds the website, films and inquiry system that turn their work into clients.
           </motion.p>
 
           <div className="grid grid-cols-3 gap-4 md:col-span-6 md:col-start-6">

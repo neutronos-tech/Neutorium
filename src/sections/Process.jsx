@@ -2,14 +2,15 @@ import { useLayoutEffect, useRef } from "react";
 import { gsap } from "../lib/smooth";
 
 const steps = [
-  ["Research", "We study the industry, its leaders, and its gaps before choosing to enter it."],
-  ["Select", "We open fifteen partner seats and choose companies we can genuinely move."],
-  ["Integrate", "We plug into your team, tools, and goals within the first two weeks."],
-  ["Build", "Research becomes work: products, brands, systems, and campaigns."],
-  ["Measure & renew", "We report openly, adjust monthly, and renew when the results earn it."],
+  ["Snapshot", "Before any pitch, a free review of your online presence: three strengths and three specific gaps."],
+  ["Research", "Days 1 to 14. Competitor scan, positioning, ideal-customer profile and baseline metrics."],
+  ["Launch", "By Day 30. Your website goes live and the 90-day content calendar is approved."],
+  ["Content & capture", "Days 31 to 60. Premium reels and long-form films, plus an inquiry system live by Day 45."],
+  ["Final build", "Days 61 to 90. A second content set shaped by the first, and the final animated website."],
+  ["Review & renew", "Day 90. Results against the baseline, then advanced services for long-term partners."],
 ];
 
-export default function Process() {
+export default function Process({ n = "06" }) {
   const sec = useRef(null);
   const track = useRef(null);
 
@@ -36,7 +37,7 @@ export default function Process() {
       <div className="h-scroll-inner flex flex-col justify-center py-24 md:py-0">
         <div className="wrap mb-12 flex items-end justify-between">
           <div>
-            <p className="label text-paper/50">(06) Process</p>
+            <p className="label text-paper/50">({n}) Process</p>
             <h2 className="mt-6 text-[clamp(40px,5.6vw,92px)] font-medium leading-[0.95] tracking-[-0.05em]">
               How a partnership
               <br />

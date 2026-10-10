@@ -1,10 +1,11 @@
 @import "tailwindcss";
 
 @theme {
-  --color-paper: #ffffff;
-  --color-ink: #0b0b0b;
-  --color-mute: #8c8c8c;
-  --color-line: #e8e8e8;
+  --color-paper: #f7eeed;
+  --color-blush: #e8cccb;
+  --color-ink: #741516;
+  --color-mute: #a37472;
+  --color-line: #ead6d5;
   --font-sans: "Geist", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "Geist Mono", ui-monospace, monospace;
   --font-serif: "Instrument Serif", ui-serif, Georgia, serif;
@@ -60,10 +61,10 @@ body {
 
 .cursor-dot {
   display: block; width: 10px; height: 10px; margin: -5px 0 0 -5px;
-  border-radius: 999px; background: #fff;
+  border-radius: 999px; background: var(--color-ink);
   transition: transform 0.45s var(--ease-out-expo);
 }
-.cursor.is-hover .cursor-dot { transform: scale(4.5); }
+.cursor.is-hover .cursor-dot { transform: scale(4.5); opacity: 0.25; }
 @media (pointer: coarse) { .cursor { display: none; } }
 
 .h-scroll-track { display: flex; flex-direction: column; gap: 16px; }
@@ -76,4 +77,10 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+}
+
+.wordmark {
+  display: inline-block; aspect-ratio: 1917 / 342; background: currentColor;
+  -webkit-mask: url("/brand/wordmark.png") center / contain no-repeat;
+  mask: url("/brand/wordmark.png") center / contain no-repeat;
 }
