@@ -1,0 +1,60 @@
+name: Build and deploy
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: neutorium-site-production
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Build
+        run: |
+          npm ci
+          npm run build
+
+      - name: Deploy to VPS
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        env:
+          SSH_KEY: ${{ secrets.NEUTORIUM_SITE_SSH_KEY }}
+        run: |
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$SSH_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          printf '%s\n' '187.53.130.231 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBeHmD2n1lIdhXC65IaK9DlavnrVsC5P1vM1pEJt7A1v' >> ~/.ssh/known_hosts
+          # The server-side forced command (deploy/receive-release.sh) unpacks
+          # stdin into a new release and swaps the live symlink.
+          tar -C dist -czf - . | ssh -i ~/.ssh/deploy_key -o IdentitiesOnly=yes \
+            neutorium-deploy@187.53.130.231 "$GITHUB_SHA"
+
+      - name: Verify live site
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        run: |
+          expected=$(grep -o 'assets/index-[^"]*\.js' dist/index.html | head -1)
+          for i in $(seq 1 10); do
+            if curl -fsS https://neutorium.com/ | grep -q "$expected"; then
+              echo "Live site serves $expected"; exit 0
+            fi
+            sleep 3
+          done
+          echo "neutorium.com is not serving the new build ($expected)" >&2
+          exit 1
