@@ -149,7 +149,7 @@ function fieldPaths(strapi, attributes, prefix = '') {
 // Debounced GitHub repository_dispatch so the website re-renders after content changes.
 function watchForSiteRebuilds(strapi) {
   const token = process.env.GITHUB_DISPATCH_TOKEN;
-  const repo = process.env.GITHUB_REPOSITORY || 'neutronos-tech/test';
+  const repo = process.env.GITHUB_REPOSITORY || 'neutronos-tech/Neutorium';
   if (!token) return strapi.log.info('[rebuild] GITHUB_DISPATCH_TOKEN not set; site rebuilds are manual');
 
   let timer = null;

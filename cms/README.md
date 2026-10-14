@@ -52,7 +52,7 @@ and run `npm run dev` there.
 
 The website reads the CMS in the browser, so edits show on the next page load. The pre-rendered HTML that search
 and answer engines read is regenerated on every site build. To rebuild automatically after edits, set
-`GITHUB_DISPATCH_TOKEN` (fine-grained GitHub token, *Actions: read and write* on `neutronos-tech/test`); the CMS then
+`GITHUB_DISPATCH_TOKEN` (fine-grained GitHub token, *Actions: read and write* on `neutronos-tech/Neutorium`); the CMS then
 triggers the deploy workflow one minute after the last change.
 
 ## Deploy on the VPS
