@@ -6,7 +6,7 @@ export default function NotFound() {
     <PageHeader
       label="Page not found"
       lines={["This page has", <span className="text-mute">moved on.</span>]}
-      text="The link may be old or mistyped."
+      text="The link may be old or mistyped. Try the menu above."
     >
       <div className="flex gap-6 text-sm md:justify-end">
         <Link to="/" className="nav-link">Back to home</Link>
