@@ -68,3 +68,26 @@ The CMS runs on the same domain as the site, so no DNS change is needed.
 5. Open `https://neutorium.com/addme` and follow *First login* above.
 
 Back up the `db` and `uploads` volumes; they hold all content, enquiries and tasks.
+
+## Assistant (website text edits)
+
+**Assistant** in the sidebar (Super Admins only) changes text on the website without touching code by hand: a date,
+a name, a sentence, a price.
+
+1. Type the exact text to **Find** and what to **Replace with**. Optionally choose files; by default it searches
+   every editable file.
+2. **Preview change** shows the diff for every file it touches.
+3. **Open pull request** commits to a new `ai/...` branch and opens a pull request on GitHub. Review and merge it
+   there; merging to `main` deploys the live site.
+
+Safety: it never writes to `main` (it can only create new branches), it can only change text files under `src/` and
+`public/` (never `.github/`, `deploy/`, `cms/`, hidden files or anything named like a secret), and other roles get
+"forbidden" even if someone grants them the permission.
+
+Setup: create a fine-grained GitHub token for `neutronos-tech/Neutorium` with *Contents: read and write* and
+*Pull requests: read and write*, and set it as `AI_GITHUB_TOKEN` in the server `.env` (never in git). Also add
+`/ai-assistant/*` to the CMS paths in the site Caddyfile (already in `deploy/site.Caddyfile`). For extra protection,
+add a GitHub branch rule on `main` that requires a pull request.
+
+There is no AI model in it yet. The smallest models (SmolLM2-135M, ~270 MB) could not make even a one-word edit
+reliably in testing, so the assistant does exact edits instead of guessing.

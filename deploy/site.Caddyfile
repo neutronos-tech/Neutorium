@@ -11,7 +11,7 @@
 
 	# Neutorium CMS (Strapi, container neutorium-cms) on the same domain:
 	# the panel at /addme, its admin API and plugin routes, the public content API and uploads.
-	@cms path /addme /addme/* /admin/* /api/* /uploads/* /content-manager/* /content-type-builder/* /upload/* /users-permissions/* /i18n/* /email/* /content-releases/* /review-workflows/*
+	@cms path /addme /addme/* /admin/* /api/* /uploads/* /content-manager/* /content-type-builder/* /upload/* /users-permissions/* /i18n/* /email/* /content-releases/* /review-workflows/* /ai-assistant/*
 	handle @cms {
 		# Never index the CMS (and do not list /addme in robots.txt, which would advertise it).
 		header X-Robots-Tag "noindex, nofollow"

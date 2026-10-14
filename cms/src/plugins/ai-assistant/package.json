@@ -1,0 +1,16 @@
+{
+  "name": "ai-assistant",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Change website text from the CMS, review the diff, open a pull request.",
+  "strapi": {
+    "kind": "plugin",
+    "name": "ai-assistant",
+    "displayName": "Assistant"
+  },
+  "exports": {
+    "./strapi-admin": { "import": "./admin/src/index.jsx" },
+    "./strapi-server": { "require": "./strapi-server.js" },
+    "./package.json": "./package.json"
+  }
+}
