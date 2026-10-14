@@ -42,7 +42,11 @@ const render = (route, meta) =>
 
 const routes = allRoutes(content);
 for (const route of routes) {
-  const meta = pageMeta(route, content);
+  let meta = pageMeta(route, content);
+  // dist/index.html is also the server's fallback for any path it cannot match, so its raw
+  // HTML must not claim to be the canonical home page (that would mark every other URL as a
+  // duplicate of "/"). <Seo> adds the canonical link in the browser on every page.
+  if (route === "/") meta = { ...meta, canonical: null };
   const file = route === "/" ? path.join(dist, "index.html") : path.join(dist, route.slice(1), "index.html");
   mkdirSync(path.dirname(file), { recursive: true });
   writeFileSync(file, render(route, meta));
