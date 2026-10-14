@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_task_comments",
+  "info": {
+    "displayName": "Comment",
+    "icon": "discuss",
+    "description": "Progress note. Put your name in By."
+  },
+  "options": {},
+  "attributes": {
+    "by": {
+      "type": "string",
+      "required": true
+    },
+    "date": {
+      "type": "date"
+    },
+    "note": {
+      "type": "text",
+      "required": true
+    }
+  }
+}

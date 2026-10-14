@@ -1,0 +1,38 @@
+{
+  "kind": "collectionType",
+  "collectionName": "faqs",
+  "info": {
+    "singularName": "faq",
+    "pluralName": "faqs",
+    "displayName": "FAQ",
+    "description": "Page-level questions (home, partnership, services). They render visibly and as FAQPage structured data."
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "question": {
+      "type": "string",
+      "required": true
+    },
+    "answer": {
+      "type": "text",
+      "required": true
+    },
+    "page": {
+      "type": "enumeration",
+      "enum": [
+        "general",
+        "partnership",
+        "services"
+      ],
+      "default": "general",
+      "required": true
+    },
+    "order": {
+      "type": "integer",
+      "default": 0
+    }
+  }
+}

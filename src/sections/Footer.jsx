@@ -1,14 +1,15 @@
 import { Link } from "react-router-dom";
 import { motion } from "motion/react";
 import { scrollTo } from "../lib/smooth";
-import { EMAIL, SOCIALS } from "../data/site";
+import { useContent } from "../lib/content";
 
 const cols = [
-  ["Explore", [["Home", "/"], ["About", "/about"], ["Research", "/research"], ["Partnership", "/partnership"], ["Services", "/services"]]],
+  ["Explore", [["Home", "/"], ["About", "/about"], ["Research", "/research"], ["Partnership", "/partnership"], ["Services", "/services"], ["Insights", "/insights"]]],
   ["Work with us", [["Start a project", "/start"], ["Packages", "/partnership#packages"], ["Single services", "/services"]]],
 ];
 
 export default function Footer() {
+  const { email: EMAIL, socials: SOCIALS } = useContent();
   return (
     <footer className="border-t border-line">
       <div className="wrap grid grid-cols-2 gap-8 py-16 text-sm md:grid-cols-12">

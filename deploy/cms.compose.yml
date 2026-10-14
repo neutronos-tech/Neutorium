@@ -1,0 +1,39 @@
+# Neutorium CMS on the VPS. Copy to the server (e.g. /opt/neutorium-cms/compose.yml),
+# create .env next to it from cms/.env.example, then: docker compose up -d --build
+# The shared Caddy proxies cms.neutorium.com to neutorium-cms:1337 (see cms.Caddyfile).
+services:
+  neutorium-cms:
+    build: ../cms
+    container_name: neutorium-cms
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      DATABASE_CLIENT: postgres
+      DATABASE_HOST: neutorium-cms-db
+      DATABASE_PORT: 5432
+      PUBLIC_URL: https://cms.neutorium.com
+    volumes:
+      - uploads:/app/public/uploads
+    depends_on:
+      - neutorium-cms-db
+    networks: [default, proxy]
+
+  neutorium-cms-db:
+    image: postgres:16-alpine
+    container_name: neutorium-cms-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${DATABASE_NAME:-neutorium_cms}
+      POSTGRES_USER: ${DATABASE_USERNAME:-neutorium}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD:?set DATABASE_PASSWORD in .env}
+    volumes:
+      - db:/var/lib/postgresql/data
+
+volumes:
+  uploads:
+  db:
+
+networks:
+  # The network the shared Caddy container is attached to; adjust the name to match the server.
+  proxy:
+    external: true

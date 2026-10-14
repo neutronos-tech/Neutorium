@@ -1,0 +1,46 @@
+{
+  "kind": "collectionType",
+  "collectionName": "industries",
+  "info": {
+    "singularName": "industry",
+    "pluralName": "industries",
+    "displayName": "Industry",
+    "description": "Industries with fifteen partner seats each. Filled must always be the real number."
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "name",
+      "required": true
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "open",
+        "waitlist",
+        "research"
+      ],
+      "default": "open",
+      "required": true
+    },
+    "filled": {
+      "type": "integer",
+      "min": 0,
+      "max": 15,
+      "default": 0,
+      "required": true
+    },
+    "order": {
+      "type": "integer",
+      "default": 0
+    }
+  }
+}

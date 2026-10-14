@@ -1,0 +1,51 @@
+{
+  "kind": "collectionType",
+  "collectionName": "articles",
+  "info": {
+    "singularName": "article",
+    "pluralName": "articles",
+    "displayName": "Insight article",
+    "description": "Answer-first articles. Put the exact question in Question and a 40-60 word answer in Answer."
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title",
+      "required": true
+    },
+    "question": {
+      "type": "string",
+      "required": true
+    },
+    "answer": {
+      "type": "text",
+      "required": true,
+      "maxLength": 420
+    },
+    "body": {
+      "type": "richtext"
+    },
+    "author": {
+      "type": "string",
+      "default": "Neutorium"
+    },
+    "faqs": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.faq"
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.seo"
+    }
+  }
+}

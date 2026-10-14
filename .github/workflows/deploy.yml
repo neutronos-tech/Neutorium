@@ -6,6 +6,9 @@ on:
   pull_request:
     branches: [main]
   workflow_dispatch:
+  # Sent by the CMS a minute after content changes, so pre-rendered pages stay current.
+  repository_dispatch:
+    types: [cms-content-changed]
 
 permissions:
   contents: read
@@ -28,6 +31,10 @@ jobs:
           cache: npm
 
       - name: Build
+        env:
+          # Repository variable, e.g. https://cms.neutorium.com. Empty = built-in content.
+          CMS_URL: ${{ vars.CMS_URL }}
+          VITE_CMS_URL: ${{ vars.CMS_URL }}
         run: |
           npm ci
           npm run build

@@ -3,9 +3,11 @@ import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "motion/react";
 import { Lines } from "../components/Reveal";
 import { Plus } from "../components/Icons";
-import { CATEGORIES, servicesIn } from "../data/services";
+import { CATEGORIES } from "../data/services";
+import { useContent } from "../lib/content";
 
 export default function Services({ n = "05" }) {
+  const { servicesIn } = useContent();
   const [open, setOpen] = useState("web-design");
 
   return (

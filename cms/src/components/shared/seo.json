@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_shared_seos",
+  "info": {
+    "displayName": "SEO",
+    "icon": "search",
+    "description": "Search and answer-engine metadata. Leave empty to use generated defaults."
+  },
+  "options": {},
+  "attributes": {
+    "metaTitle": {
+      "type": "string",
+      "maxLength": 70
+    },
+    "metaDescription": {
+      "type": "text",
+      "maxLength": 170
+    },
+    "noIndex": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

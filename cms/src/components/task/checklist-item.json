@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_task_checklist_items",
+  "info": {
+    "displayName": "Checklist item",
+    "icon": "check"
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string",
+      "required": true
+    },
+    "done": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

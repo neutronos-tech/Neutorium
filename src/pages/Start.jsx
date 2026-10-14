@@ -5,9 +5,17 @@ import { useReady } from "../lib/ready";
 import { resetScroll } from "../lib/smooth";
 import { cn, pad } from "../lib/utils";
 import { Arrow, Check, Plus } from "../components/Icons";
-import { CATEGORIES, serviceBySlug, servicesIn } from "../data/services";
+import { CATEGORIES } from "../data/services";
+import { useContent } from "../lib/content";
+import { cmsPost } from "../lib/cms";
 import { PACKAGES, packageById } from "../data/packages";
-import { INDUSTRIES, SEATS_PER_INDUSTRY, EMAIL, FORM_ENDPOINT } from "../data/site";
+import { SEATS_PER_INDUSTRY, CMS_URL, FORM_ENDPOINT } from "../data/site";
+
+// Content (from the CMS or built-in data) for the helpers below, which live outside the
+// component. Start assigns it on every render before any helper runs.
+let C = null;
+const serviceBySlug = (slug) => C.serviceBySlug(slug);
+const servicesIn = (cat) => C.servicesIn(cat);
 
 const ease = [0.16, 1, 0.3, 1];
 const STORE = "neutorium-brief-v1";
@@ -82,6 +90,7 @@ function recommend(d) {
 }
 
 export default function Start() {
+  C = useContent();
   const ready = useReady();
   const [params] = useSearchParams();
 
@@ -143,16 +152,25 @@ export default function Start() {
     setStatus("sending");
     const brief = buildBrief(data);
     try {
-      if (FORM_ENDPOINT) {
+      const services = data.services.map((s) => serviceBySlug(s)?.name).filter(Boolean);
+      if (CMS_URL) {
+        const industry = data.industry === "other" ? data.industryOther : [...C.industries, ...EXTRA_INDUSTRIES].find((i) => i.slug === data.industry)?.name;
+        await cmsPost("enquiries", {
+          name: data.name, role: data.role, email: data.email, phone: data.phone, contactPref: data.contactPref,
+          company: data.company, industry, location: data.location, website: data.website,
+          route: data.path, package: data.pkg || null, services, goals: data.goals, timeline: data.timeline,
+          notes: data.notes, brief,
+        });
+      } else if (FORM_ENDPOINT) {
         const res = await fetch(FORM_ENDPOINT, {
           method: "POST",
           headers: { "Content-Type": "application/json", Accept: "application/json" },
-          body: JSON.stringify({ ...data, services: data.services.map((s) => serviceBySlug(s)?.name), brief }),
+          body: JSON.stringify({ ...data, services, brief }),
         });
         if (!res.ok) throw new Error("Request failed");
       } else {
         const subject = `Project brief: ${data.company || data.name}`;
-        window.location.href = `mailto:${EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(brief)}`;
+        window.location.href = `mailto:${C.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(brief)}`;
       }
       setStatus("sent");
       clear();
@@ -264,7 +282,7 @@ export default function Start() {
               )}
               {status === "error" && (
                 <p role="alert" className="mt-6 text-sm text-ink">
-                  Something went wrong sending your brief. Please try again, or write to <a className="underline" href={"mailto:" + EMAIL}>{EMAIL}</a>.
+                  Something went wrong sending your brief. Please try again, or write to <a className="underline" href={"mailto:" + C.email}>{C.email}</a>.
                 </p>
               )}
             </motion.div>
@@ -279,7 +297,7 @@ export default function Start() {
                 </button>
                 {step === "review" ? (
                   <Pill onClick={submit} disabled={status === "sending"}>
-                    {status === "sending" ? "Sending" : FORM_ENDPOINT ? "Send my brief" : "Send via email"}
+                    {status === "sending" ? "Sending" : CMS_URL || FORM_ENDPOINT ? "Send my brief" : "Send via email"}
                   </Pill>
                 ) : (
                   <Pill onClick={next} aria-disabled={!ok} className={cn(!ok && "opacity-60")}>
@@ -474,7 +492,7 @@ function ServicesStep({ data, toggle, onPartnership }) {
 }
 
 function BusinessStep({ data, set, errors }) {
-  const all = [...INDUSTRIES, ...EXTRA_INDUSTRIES];
+  const all = [...C.industries, ...EXTRA_INDUSTRIES];
   return (
     <div className="space-y-10">
       <fieldset>
@@ -482,7 +500,7 @@ function BusinessStep({ data, set, errors }) {
         <div className="grid gap-2 sm:grid-cols-2 xl:grid-cols-3">
           {all.map((ind) => {
             const on = data.industry === ind.slug;
-            const known = INDUSTRIES.find((i) => i.slug === ind.slug);
+            const known = C.industries.find((i) => i.slug === ind.slug);
             const note = known
               ? known.status === "research" ? "In research · join the early list" : `${SEATS_PER_INDUSTRY - known.filled} of ${SEATS_PER_INDUSTRY} seats open`
               : ind.detail;
@@ -599,7 +617,7 @@ function ContactStep({ data, set, errors, onEnter }) {
 
 function ReviewStep({ data, steps, go }) {
   const rec = recommend(data);
-  const ind = [...INDUSTRIES, ...EXTRA_INDUSTRIES].find((i) => i.slug === data.industry);
+  const ind = [...C.industries, ...EXTRA_INDUSTRIES].find((i) => i.slug === data.industry);
   const rows = [
     ["Route", PATHS.find((p) => p.id === data.path)?.title, "path"],
     data.path === "partnership" && ["Package", packageById(data.pkg)?.name, "package"],
@@ -632,9 +650,9 @@ function ReviewStep({ data, steps, go }) {
         ))}
       </dl>
       <p className="mt-6 max-w-xl text-sm text-mute">
-        {FORM_ENDPOINT
+        {CMS_URL || FORM_ENDPOINT
           ? "We reply within two working days."
-          : `Sending opens your email app with this brief addressed to ${EMAIL}. We reply within two working days.`}
+          : `Sending opens your email app with this brief addressed to ${C.email}. We reply within two working days.`}
       </p>
     </div>
   );
@@ -665,7 +683,7 @@ function Field({ label, value, onChange, error, errorText = "Required", as = "in
 function Summary({ data }) {
   const pkg = packageById(data.pkg);
   const services = data.services.map(serviceBySlug).filter(Boolean);
-  const ind = [...INDUSTRIES, ...EXTRA_INDUSTRIES].find((i) => i.slug === data.industry);
+  const ind = [...C.industries, ...EXTRA_INDUSTRIES].find((i) => i.slug === data.industry);
   const empty = !data.path;
   return (
     <div className="rounded-[24px] border border-ink/10 bg-transparent p-5">
@@ -715,12 +733,12 @@ function Sent({ data, onRestart }) {
         </motion.h1>
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, ease, delay: 0.3 }}>
           <p className="mt-8 text-[15px] leading-relaxed max-w-xl text-paper/70">
-            {FORM_ENDPOINT
+            {CMS_URL || FORM_ENDPOINT
               ? "Your brief has been sent. We reply within two working days."
-              : `Your email app should have opened with the brief addressed to ${EMAIL}. If it did not, copy the brief and send it to us directly.`}
+              : `Your email app should have opened with the brief addressed to ${C.email}. If it did not, copy the brief and send it to us directly.`}
           </p>
           <div className="mt-10 flex flex-wrap gap-3">
-            {!FORM_ENDPOINT && <Pill onClick={copy} light>{copied ? "Copied" : "Copy my brief"}</Pill>}
+            {!(CMS_URL || FORM_ENDPOINT) && <Pill onClick={copy} light>{copied ? "Copied" : "Copy my brief"}</Pill>}
             <Link to="/" className="nav-link px-4 text-sm text-paper">Back to home</Link>
             <button onClick={onRestart} className="link-u px-4 text-sm text-paper/60">Start another project</button>
           </div>
@@ -731,7 +749,7 @@ function Sent({ data, onRestart }) {
 }
 
 function buildBrief(d) {
-  const ind = [...INDUSTRIES, ...EXTRA_INDUSTRIES].find((i) => i.slug === d.industry);
+  const ind = [...C.industries, ...EXTRA_INDUSTRIES].find((i) => i.slug === d.industry);
   const lines = [
     "NEW PROJECT BRIEF",
     "",

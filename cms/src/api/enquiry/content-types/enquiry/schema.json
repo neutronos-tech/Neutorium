@@ -1,0 +1,91 @@
+{
+  "kind": "collectionType",
+  "collectionName": "enquiries",
+  "info": {
+    "singularName": "enquiry",
+    "pluralName": "enquiries",
+    "displayName": "Enquiry",
+    "description": "Briefs sent from the website project builder."
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "new",
+        "contacted",
+        "meeting",
+        "proposal",
+        "won",
+        "lost",
+        "spam"
+      ],
+      "default": "new",
+      "required": true
+    },
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "email": {
+      "type": "email",
+      "required": true
+    },
+    "phone": {
+      "type": "string"
+    },
+    "role": {
+      "type": "string"
+    },
+    "contactPref": {
+      "type": "string"
+    },
+    "company": {
+      "type": "string"
+    },
+    "industry": {
+      "type": "string"
+    },
+    "location": {
+      "type": "string"
+    },
+    "website": {
+      "type": "string"
+    },
+    "route": {
+      "type": "string"
+    },
+    "package": {
+      "type": "string"
+    },
+    "services": {
+      "type": "json"
+    },
+    "goals": {
+      "type": "json"
+    },
+    "timeline": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "text"
+    },
+    "brief": {
+      "type": "text"
+    },
+    "source": {
+      "type": "string"
+    },
+    "owner": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "admin::user"
+    },
+    "internalNotes": {
+      "type": "text"
+    }
+  }
+}

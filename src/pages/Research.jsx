@@ -3,7 +3,7 @@ import Rows from "../components/Rows";
 import { Lines, Rise } from "../components/Reveal";
 import Research from "../sections/Research";
 import Contact from "../sections/Contact";
-import { servicesIn } from "../data/services";
+import { useContent } from "../lib/content";
 
 const snapshot = [
   "Your website, as it looks on a phone",
@@ -13,6 +13,7 @@ const snapshot = [
 ];
 
 export default function ResearchPage() {
+  const { servicesIn } = useContent();
   return (
     <>
       <PageHeader

@@ -1,19 +1,14 @@
 import { Link } from "react-router-dom";
 import PageHeader from "../components/PageHeader";
 import Faq from "../components/Faq";
+import { useContent } from "../lib/content";
 import { Lines } from "../components/Reveal";
 import Services from "../sections/Services";
 import Contact from "../sections/Contact";
 import { CATEGORIES } from "../data/services";
 
-const faq = [
-  ["Can I hire a single service without a partnership?", "Yes. Every service can be hired on its own with a fixed scope and timeline. If it later grows into a partnership, the work carries over."],
-  ["Can I combine services into my own package?", "Yes. Pick what you need in the project builder and we come back with a scope, timeline and fee for that combination."],
-  ["Do single services get the same research?", "Every project starts with a short research brief, scaled to its size. The standard of work does not change with scope."],
-  ["How many revisions are included?", "Two rounds per asset as standard. Further rounds are agreed in writing before they start."],
-];
-
 export default function ServicesPage() {
+  const { faqs } = useContent();
   return (
     <>
       <PageHeader
@@ -41,7 +36,7 @@ export default function ServicesPage() {
             Prefer everything working together? See the <Link to="/partnership#packages" className="nav-link text-ink">partnership packages</Link>.
           </p>
         </div>
-        <Faq items={faq} className="md:col-span-7" />
+        <Faq items={faqs.services} className="md:col-span-7" />
       </section>
 
       <Contact n="03" />

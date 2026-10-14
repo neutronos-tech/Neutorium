@@ -1,0 +1,71 @@
+{
+  "kind": "collectionType",
+  "collectionName": "services",
+  "info": {
+    "singularName": "service",
+    "pluralName": "services",
+    "displayName": "Service",
+    "description": "Every service page on the website."
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "name",
+      "required": true
+    },
+    "category": {
+      "type": "enumeration",
+      "enum": [
+        "research",
+        "design",
+        "development",
+        "content",
+        "growth"
+      ],
+      "required": true
+    },
+    "summary": {
+      "type": "string",
+      "required": true,
+      "maxLength": 160
+    },
+    "intro": {
+      "type": "text",
+      "required": true
+    },
+    "includes": {
+      "type": "json"
+    },
+    "outcomes": {
+      "type": "json"
+    },
+    "timeline": {
+      "type": "string"
+    },
+    "packages": {
+      "type": "json"
+    },
+    "order": {
+      "type": "integer",
+      "default": 0
+    },
+    "faqs": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.faq"
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.seo"
+    }
+  }
+}

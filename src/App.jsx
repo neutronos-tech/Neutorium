@@ -14,15 +14,10 @@ import Services from "./pages/Services";
 import ServiceDetail from "./pages/ServiceDetail";
 import Start from "./pages/Start";
 import NotFound from "./pages/NotFound";
+import Insights from "./pages/Insights";
+import Article from "./pages/Article";
+import Seo from "./components/Seo";
 
-const TITLES = {
-  "/": "Neutorium · Research & Partnership",
-  "/about": "About · Neutorium",
-  "/research": "Research · Neutorium",
-  "/partnership": "Partnership · Neutorium",
-  "/services": "Services · Neutorium",
-  "/start": "Start a project · Neutorium",
-};
 
 export default function App() {
   const { pathname, hash } = useLocation();
@@ -45,7 +40,6 @@ export default function App() {
 
   // New page: start at the top, re-measure scroll triggers, then honour any #hash.
   useLayoutEffect(() => {
-    document.title = TITLES[pathname] || "Neutorium";
     if (!first.current) resetScroll();
     first.current = false;
     const t = setTimeout(() => ScrollTrigger.refresh(), 50);
@@ -60,6 +54,7 @@ export default function App() {
 
   return (
     <ReadyContext.Provider value={ready}>
+      <Seo />
       <Loader onDone={done} />
       <Cursor />
       <Nav />
@@ -71,6 +66,8 @@ export default function App() {
           <Route path="/partnership" element={<Partnership />} />
           <Route path="/services" element={<Services />} />
           <Route path="/services/:slug" element={<ServiceDetail />} />
+          <Route path="/insights" element={<Insights />} />
+          <Route path="/insights/:slug" element={<Article />} />
           <Route path="/start" element={<Start />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

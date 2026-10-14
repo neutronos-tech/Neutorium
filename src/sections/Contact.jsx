@@ -1,11 +1,12 @@
 import { Lines } from "../components/Reveal";
 import Magnetic from "../components/Magnetic";
-import { EMAIL } from "../data/site";
+import { useContent } from "../lib/content";
 
 export default function Contact({ n = "07" }) {
+  const { email: EMAIL } = useContent();
   return (
     <section id="contact" className="wrap py-32 md:py-48">
-      <p className="label text-mute">({n}) Start a project</p>
+      <p className="label text-mute">{n ? `(${n}) ` : ""}Start a project</p>
       <Lines
         className="mt-8 text-[clamp(52px,11vw,200px)] font-medium leading-[0.9] tracking-[-0.06em]"
         lines={["Let's build", <>what's <em className="font-serif font-normal tracking-[-0.02em]">next.</em></>]}

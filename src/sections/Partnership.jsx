@@ -1,7 +1,8 @@
 import { useLayoutEffect, useRef, useState } from "react";
 import { gsap, prefersReduced } from "../lib/smooth";
 import { Lines } from "../components/Reveal";
-import { INDUSTRIES, SEATS_PER_INDUSTRY } from "../data/site";
+import { SEATS_PER_INDUSTRY } from "../data/site";
+import { useContent } from "../lib/content";
 
 const points = [
   ["Integrated, not outsourced", "We join your team's rhythm, tools, and goals as a true partner."],
@@ -14,8 +15,9 @@ const points = [
 export default function Partnership({ n = "03" }) {
   const ref = useRef(null);
   const countRef = useRef(null);
+  const { industries: INDUSTRIES } = useContent();
   const [active, setActive] = useState(0);
-  const industry = INDUSTRIES[active];
+  const industry = INDUSTRIES[active] || INDUSTRIES[0];
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {

@@ -1,14 +1,17 @@
 import { Link, useParams } from "react-router-dom";
 import PageHeader from "../components/PageHeader";
 import Rows from "../components/Rows";
+import Faq from "../components/Faq";
 import { Lines, Rise } from "../components/Reveal";
 import Contact from "../sections/Contact";
-import { serviceBySlug, categoryById, servicesIn } from "../data/services";
+import { categoryById } from "../data/services";
+import { useContent } from "../lib/content";
 import { packageById } from "../data/packages";
 import NotFound from "./NotFound";
 
 export default function ServiceDetail() {
   const { slug } = useParams();
+  const { serviceBySlug, servicesIn } = useContent();
   const s = serviceBySlug(slug);
   if (!s) return <NotFound />;
   const cat = categoryById(s.category);
@@ -85,6 +88,18 @@ export default function ServiceDetail() {
           </ol>
         </div>
       </section>
+
+      {s.faqs?.length > 0 && (
+        <section className="wrap grid gap-16 py-24 md:grid-cols-12 md:py-32">
+          <div className="md:col-span-5">
+            <p className="label text-mute">Questions</p>
+            <h2 className="mt-6 text-[clamp(32px,4vw,64px)] font-medium leading-[0.95] tracking-[-0.05em]">
+              About <span className="text-mute">{s.name.toLowerCase()}.</span>
+            </h2>
+          </div>
+          <Faq items={s.faqs} className="md:col-span-7" />
+        </section>
+      )}
 
       {related.length > 0 && (
         <section className="wrap grid gap-16 py-24 md:grid-cols-12 md:py-32">

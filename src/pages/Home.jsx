@@ -6,6 +6,8 @@ import Process from "../sections/Process";
 import Contact from "../sections/Contact";
 import Rows from "../components/Rows";
 import { Lines } from "../components/Reveal";
+import Faq from "../components/Faq";
+import { useContent } from "../lib/content";
 
 const explore = [
   { title: "About", text: "Who we are, the rules we work by, and why we cap every industry at fifteen partners.", to: "/about" },
@@ -15,6 +17,7 @@ const explore = [
 ];
 
 export default function Home() {
+  const { faqs } = useContent();
   return (
     <>
       <Hero />
@@ -32,7 +35,17 @@ export default function Home() {
         <div className="md:col-span-7"><Rows items={explore} /></div>
       </section>
       <Process n="04" />
-      <Contact n="05" />
+      <section className="wrap grid gap-16 py-24 md:grid-cols-12 md:py-40">
+        <div className="md:col-span-5">
+          <p className="label text-mute">(05) Questions</p>
+          <Lines
+            className="mt-6 text-[clamp(40px,5.6vw,92px)] font-medium leading-[0.95] tracking-[-0.05em]"
+            lines={["In short,", <span className="text-mute">what we do.</span>]}
+          />
+        </div>
+        <Faq items={faqs.general} className="md:col-span-7" />
+      </section>
+      <Contact n="06" />
     </>
   );
 }

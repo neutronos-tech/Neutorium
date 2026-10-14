@@ -15,10 +15,10 @@
 		file_server
 	}
 
-	# Everything else: SPA fallback to index.html for client-side routes.
+	# Pre-rendered pages (dist/<route>/index.html) first, then the SPA shell for anything else.
 	handle {
 		header Cache-Control "no-cache"
-		try_files {path} /index.html
+		try_files {path} {path}/index.html /index.html
 		file_server
 	}
 }
