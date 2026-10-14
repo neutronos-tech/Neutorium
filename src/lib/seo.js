@@ -244,7 +244,7 @@ export function metaTags(m, verify = {}) {
 export function headHtml(m, verify) {
   return [
     `<title>${esc(m.title)}</title>`,
-    `<link rel="canonical" href="${esc(m.canonical)}" />`,
+    ...(m.canonical ? [`<link rel="canonical" href="${esc(m.canonical)}" />`] : []),
     ...metaTags(m, verify).map(([attr, key, value]) => `<meta ${attr}="${key}" content="${esc(value)}" />`),
     `<script type="application/ld+json" id="ld-json">${JSON.stringify(m.jsonLd).replace(/</g, "\\u003c")}</script>`,
   ].join("\n    ");
