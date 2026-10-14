@@ -48,7 +48,7 @@ async function seedContent(strapi) {
   if (await isEmpty(strapi, 'api::industry.industry')) {
     for (const [i, ind] of seed.industries.entries()) {
       await strapi.documents('api::industry.industry').create({
-        data: { name: ind.name, slug: ind.slug, status: ind.status, filled: ind.filled, order: i },
+        data: { name: ind.name, slug: ind.slug, availability: ind.status, filled: ind.filled, order: i },
       });
     }
   }
@@ -86,7 +86,7 @@ async function seedTasks(strapi) {
     await strapi.documents('api::task.task').create({
       data: {
         title: t.title,
-        status: t.phase === 1 ? 'todo' : 'backlog',
+        stage: t.phase === 1 ? 'todo' : 'backlog',
         priority: t.priority,
         area: t.area,
         phase: t.phase,
@@ -172,10 +172,33 @@ function watchForSiteRebuilds(strapi) {
   strapi.db.lifecycles.subscribe({ models: SITE_MODELS, afterCreate: schedule, afterUpdate: schedule, afterDelete: schedule });
 }
 
+// First login: with no admin yet, create the Super Admin from ADMIN_EMAIL + ADMIN_INITIAL_PASSWORD
+// so /addme shows a sign-in page instead of Strapi's open "create the first admin" form.
+async function ensureFirstAdmin(strapi) {
+  const email = process.env.ADMIN_EMAIL;
+  const password = process.env.ADMIN_INITIAL_PASSWORD;
+  if ((await strapi.db.query('admin::user').count()) > 0) return;
+  if (!email || !password || password === 'change-me') {
+    strapi.log.warn('[setup] No admin yet. Set ADMIN_EMAIL and ADMIN_INITIAL_PASSWORD so the first login is protected.');
+    return;
+  }
+  const superAdmin = await strapi.service('admin::role').getSuperAdmin();
+  await strapi.service('admin::user').create({
+    email: email.toLowerCase(),
+    firstname: 'Neutorium',
+    lastname: 'Admin',
+    password,
+    isActive: true,
+    roles: [superAdmin.id],
+  });
+  strapi.log.info(`[setup] Admin ${email} created. Sign in at ${strapi.config.get('admin.url', '/addme')}`);
+}
+
 module.exports = {
   register() {},
 
   async bootstrap({ strapi }) {
+    await ensureFirstAdmin(strapi);
     await grantPublicPermissions(strapi);
     await seedContent(strapi);
     await seedTasks(strapi);

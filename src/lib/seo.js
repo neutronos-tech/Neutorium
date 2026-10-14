@@ -7,6 +7,7 @@ import { PACKAGES, PHASES } from "../data/packages.js";
 
 const ORG_ID = `${SITE_URL}/#organization`;
 const SITE_ID = `${SITE_URL}/#website`;
+const OG_IMAGE = `${SITE_URL}/brand/og.png`;
 
 const STATIC_PAGES = {
   "/": {
@@ -68,6 +69,8 @@ const organization = (content) => ({
   image: `${SITE_URL}/brand/wordmark.png`,
   description: DESCRIPTION,
   email: content.email,
+  contactPoint: { "@type": "ContactPoint", contactType: "sales", email: content.email, availableLanguage: ["English"], url: `${SITE_URL}/start` },
+  slogan: "We research what's next. Then we build it with you.",
   sameAs: content.socials.map(([, url]) => url).filter((u) => /^https?:\/\//.test(u)),
   knowsAbout: ["Web design", "Website development", "UX/UI design", "Product design", "Market research", "Video production", "Search engine optimization", "Answer engine optimization", "AI agents"],
   hasOfferCatalog: {
@@ -105,7 +108,7 @@ export function pageMeta(path, content) {
     const p = STATIC_PAGES[clean];
     meta = { title: p.title, description: p.description, h1: p.h1, faqs: p.faqKey ? content.faqs[p.faqKey] : null };
     if (clean === "/") {
-      graph.push({ "@type": "WebSite", "@id": SITE_ID, url: SITE_URL, name: BRAND, publisher: { "@id": ORG_ID } });
+      graph.push({ "@type": "WebSite", "@id": SITE_ID, url: SITE_URL, name: BRAND, description: DESCRIPTION, inLanguage: "en", publisher: { "@id": ORG_ID } });
     } else {
       graph.push(breadcrumbs([["Home", "/"], [p.crumb, clean]]));
     }
@@ -168,6 +171,30 @@ export function pageMeta(path, content) {
   const fp = faqPage(meta.faqs, url);
   if (fp) graph.push(fp);
 
+  // Every page is a WebPage that belongs to the site and is about the organisation.
+  const crumb = graph.find((n) => n["@type"] === "BreadcrumbList");
+  graph.push({
+    "@type": meta.type === "article" ? "WebPage" : clean === "/services" ? "CollectionPage" : clean === "/about" ? "AboutPage" : "WebPage",
+    "@id": `${url}#webpage`,
+    url,
+    name: meta.title,
+    description: meta.description,
+    inLanguage: "en",
+    isPartOf: { "@id": SITE_ID },
+    about: { "@id": ORG_ID },
+    primaryImageOfPage: { "@type": "ImageObject", url: OG_IMAGE, width: 1200, height: 630 },
+    ...(crumb ? { breadcrumb: crumb } : {}),
+    ...(fp ? { mainEntity: { "@id": fp["@id"] } } : {}),
+  });
+  if (clean === "/services") {
+    graph.push({
+      "@type": "ItemList",
+      name: "Neutorium services",
+      itemListElement: content.services.map((sv, i) => ({ "@type": "ListItem", position: i + 1, name: sv.name, url: `${SITE_URL}/services/${sv.slug}` })),
+    });
+  }
+  if (clean !== "/") graph.push({ "@type": "WebSite", "@id": SITE_ID, url: SITE_URL, name: BRAND });
+
   return {
     ...meta,
     url,
@@ -185,20 +212,40 @@ export function allRoutes(content) {
   ];
 }
 
-// <head> tags as an HTML string (prerender) - the browser builds the same tags via the DOM.
-export function headHtml(m) {
+// Meta tags for a page as [attribute, key, value]. Shared by the prerender script (HTML
+// string) and <Seo> (DOM), so the static HTML and the live page always match.
+export function metaTags(m, verify = {}) {
+  const ogType = m.type === "article" ? "article" : "website";
+  return [
+    ["name", "description", m.description],
+    ["name", "robots", m.noindex ? "noindex, follow" : "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"],
+    ["name", "author", BRAND],
+    ["property", "og:type", ogType],
+    ["property", "og:site_name", BRAND],
+    ["property", "og:locale", "en_US"],
+    ["property", "og:title", m.title],
+    ["property", "og:description", m.description],
+    ["property", "og:url", m.url],
+    ["property", "og:image", OG_IMAGE],
+    ["property", "og:image:width", "1200"],
+    ["property", "og:image:height", "630"],
+    ["property", "og:image:alt", `${BRAND} logo`],
+    ...(m.article ? [["property", "article:published_time", m.article.date], ["property", "article:modified_time", m.article.updated || m.article.date]] : []),
+    ["name", "twitter:card", "summary_large_image"],
+    ["name", "twitter:title", m.title],
+    ["name", "twitter:description", m.description],
+    ["name", "twitter:image", OG_IMAGE],
+    ...(verify.google ? [["name", "google-site-verification", verify.google]] : []),
+    ...(verify.bing ? [["name", "msvalidate.01", verify.bing]] : []),
+  ].filter(([, , v]) => v);
+}
+
+// <head> as an HTML string for the prerendered files.
+export function headHtml(m, verify) {
   return [
     `<title>${esc(m.title)}</title>`,
-    `<meta name="description" content="${esc(m.description)}" />`,
     `<link rel="canonical" href="${esc(m.canonical)}" />`,
-    m.noindex ? `<meta name="robots" content="noindex, follow" />` : `<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />`,
-    `<meta property="og:type" content="${m.type === "article" ? "article" : "website"}" />`,
-    `<meta property="og:site_name" content="${BRAND}" />`,
-    `<meta property="og:title" content="${esc(m.title)}" />`,
-    `<meta property="og:description" content="${esc(m.description)}" />`,
-    `<meta property="og:url" content="${esc(m.url)}" />`,
-    `<meta property="og:image" content="${SITE_URL}/brand/og.png" />`,
-    `<meta name="twitter:card" content="summary_large_image" />`,
+    ...metaTags(m, verify).map(([attr, key, value]) => `<meta ${attr}="${key}" content="${esc(value)}" />`),
     `<script type="application/ld+json" id="ld-json">${JSON.stringify(m.jsonLd).replace(/</g, "\\u003c")}</script>`,
   ].join("\n    ");
 }

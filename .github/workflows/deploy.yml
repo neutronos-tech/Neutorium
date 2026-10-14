@@ -35,6 +35,9 @@ jobs:
           # Repository variable, e.g. https://cms.neutorium.com. Empty = built-in content.
           CMS_URL: ${{ vars.CMS_URL }}
           VITE_CMS_URL: ${{ vars.CMS_URL }}
+          # Optional HTML-tag verification for Google Search Console / Bing Webmaster Tools.
+          GOOGLE_SITE_VERIFICATION: ${{ vars.GOOGLE_SITE_VERIFICATION }}
+          BING_SITE_VERIFICATION: ${{ vars.BING_SITE_VERIFICATION }}
         run: |
           npm ci
           npm run build
@@ -65,3 +68,16 @@ jobs:
           done
           echo "neutorium.com is not serving the new build ($expected)" >&2
           exit 1
+
+      # Tell IndexNow engines (Bing, Yandex, Seznam, Naver; Bing feeds ChatGPT search and Copilot)
+      # that the site changed. The key file is public/88ba80cc11e5a2ecd915ffc667fa5dc7.txt.
+      - name: Notify IndexNow
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        continue-on-error: true
+        run: |
+          key=88ba80cc11e5a2ecd915ffc667fa5dc7
+          urls=$(grep -o '<loc>[^<]*</loc>' dist/sitemap.xml | sed 's/<[^>]*>//g' | jq -R . | jq -s .)
+          jq -n --arg key "$key" --argjson urls "$urls" \
+            '{host: "neutorium.com", key: $key, keyLocation: ("https://neutorium.com/" + $key + ".txt"), urlList: $urls}' \
+            | curl -sS -o /dev/null -w 'IndexNow HTTP %{http_code}\n' -X POST https://api.indexnow.org/indexnow \
+                -H 'Content-Type: application/json; charset=utf-8' -d @-

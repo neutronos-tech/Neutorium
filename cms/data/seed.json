@@ -1,0 +1,514 @@
+{
+  "services": [
+    {
+      "slug": "market-research-report",
+      "name": "Market research report",
+      "category": "research",
+      "summary": "A focused study of your market, competitors and customers.",
+      "intro": "Before a single pixel or frame, we study the market you compete in: who is winning attention, what buyers actually search for, and where the gaps are. You get a written report and a walkthrough, built to drive decisions.",
+      "includes": [
+        "Competitor scan",
+        "Customer profile",
+        "Channel audit",
+        "Pricing landscape",
+        "Opportunity map"
+      ],
+      "outcomes": [
+        "A clear picture of where demand is moving",
+        "Five named competitors, benchmarked",
+        "A prioritised list of opportunities"
+      ],
+      "timeline": "2 to 3 weeks",
+      "pkg": []
+    },
+    {
+      "slug": "research-positioning",
+      "name": "Research & positioning",
+      "category": "research",
+      "summary": "Competitor scan, positioning statement and ideal-customer profile.",
+      "intro": "The first fourteen days of every partnership. We scan five direct competitors, define the position you can own, describe the customer you want more of, and record baseline metrics so every later result can be measured honestly.",
+      "includes": [
+        "Scan of 5 competitors",
+        "Positioning statement",
+        "Ideal-customer profile",
+        "Baseline metrics"
+      ],
+      "outcomes": [
+        "One sentence that explains why you",
+        "A baseline every result is measured against",
+        "Direction for the website and content"
+      ],
+      "timeline": "Days 1 to 14",
+      "pkg": [
+        "foundation",
+        "growth"
+      ]
+    },
+    {
+      "slug": "digital-presence-audit",
+      "name": "Digital presence audit",
+      "category": "research",
+      "summary": "Three things you do well online, three gaps costing you clients.",
+      "intro": "A short, specific review of how your company looks to a buyer who finds you online today: website on a phone, social channels, video, and how easy it is to inquire. Delivered as a one-page snapshot or a two-minute screen recording.",
+      "includes": [
+        "Website on mobile",
+        "Social channel review",
+        "Video presence",
+        "Inquiry path check"
+      ],
+      "outcomes": [
+        "An honest outside view",
+        "Three concrete gaps, ranked",
+        "Quick wins you can act on yourself"
+      ],
+      "timeline": "3 to 5 days",
+      "pkg": []
+    },
+    {
+      "slug": "brand-identity",
+      "name": "Brand identity",
+      "category": "design",
+      "summary": "Logo, visual system and guidelines built from research.",
+      "intro": "An identity that holds up next to the quality of your work: wordmark, colour, type and a small set of rules that keep every post, film and page consistent.",
+      "includes": [
+        "Logo & wordmark",
+        "Colour & typography",
+        "Visual guidelines",
+        "Social templates"
+      ],
+      "outcomes": [
+        "A recognisable, consistent look",
+        "Templates your team can reuse",
+        "A brand that matches your price point"
+      ],
+      "timeline": "3 to 5 weeks",
+      "pkg": []
+    },
+    {
+      "slug": "web-design",
+      "name": "Web design",
+      "category": "design",
+      "summary": "Portfolio websites designed around your best projects.",
+      "intro": "A website is the place interest turns into an inquiry. We design it around your strongest projects, with clear service pages, fast paths to contact, and a layout that works first on the phone in your client's hand.",
+      "includes": [
+        "Sitemap & wireframes",
+        "Mobile-first layouts",
+        "Project showcase pages",
+        "Inquiry flow design"
+      ],
+      "outcomes": [
+        "A site that sells the work, not just shows it",
+        "Clear paths from project to inquiry",
+        "Design ready for development"
+      ],
+      "timeline": "2 to 4 weeks",
+      "pkg": [
+        "foundation",
+        "growth"
+      ]
+    },
+    {
+      "slug": "product-design",
+      "name": "Product design",
+      "category": "design",
+      "summary": "Apps and platforms, from first idea to tested product.",
+      "intro": "For teams building a digital product: we shape the concept, test it with real users, and design the product end to end, so engineering starts from evidence rather than assumptions.",
+      "includes": [
+        "Product discovery",
+        "Prototyping",
+        "User testing",
+        "Design system"
+      ],
+      "outcomes": [
+        "A validated product direction",
+        "A clickable prototype",
+        "A scalable design system"
+      ],
+      "timeline": "4 to 8 weeks",
+      "pkg": []
+    },
+    {
+      "slug": "ux-ui-design",
+      "name": "UX / UI design",
+      "category": "design",
+      "summary": "Flows, wireframes and interfaces that are easy to use.",
+      "intro": "When an existing site or app confuses people, we fix the experience: mapping journeys, removing friction and redesigning the interface screen by screen.",
+      "includes": [
+        "UX audit",
+        "User flows",
+        "Wireframes",
+        "High-fidelity UI"
+      ],
+      "outcomes": [
+        "Fewer drop-offs",
+        "Interfaces that feel obvious",
+        "Specs developers can build from"
+      ],
+      "timeline": "2 to 6 weeks",
+      "pkg": []
+    },
+    {
+      "slug": "web-development",
+      "name": "Website development",
+      "category": "development",
+      "summary": "Fast, mobile-first websites engineered end to end.",
+      "intro": "We build what we design: a launch version live by Day 30 of a partnership, with five to seven pages, a working inquiry form and WhatsApp click-to-chat, hosted and handed over properly.",
+      "includes": [
+        "5 to 7 pages",
+        "CMS for projects",
+        "Inquiry form & WhatsApp",
+        "Analytics & SEO basics"
+      ],
+      "outcomes": [
+        "A live site within 30 days",
+        "Pages you can update yourself",
+        "Performance on real phones"
+      ],
+      "timeline": "3 to 5 weeks",
+      "pkg": [
+        "foundation",
+        "growth"
+      ]
+    },
+    {
+      "slug": "animated-website",
+      "name": "Animated showcase website",
+      "category": "development",
+      "summary": "The motion-led flagship version of your site.",
+      "intro": "The upgraded version delivered by Day 90: scroll animation, project transitions and a premium showcase. It becomes the link you send to your own best prospects.",
+      "includes": [
+        "Scroll animation",
+        "Project transitions",
+        "Premium showcase",
+        "Performance tuning"
+      ],
+      "outcomes": [
+        "A site that feels as crafted as your interiors",
+        "A flagship link for sales",
+        "Smooth on desktop and mobile"
+      ],
+      "timeline": "By Day 90",
+      "pkg": [
+        "growth"
+      ]
+    },
+    {
+      "slug": "premium-reels",
+      "name": "Premium reels",
+      "category": "content",
+      "summary": "Short 9:16 films that create attention.",
+      "intro": "Thirty to sixty seconds, vertical, shot on your completed sites. Reels are how new people discover you; we plan them from the content calendar and shape the second set by what the first proves works.",
+      "includes": [
+        "30 to 60 sec, 9:16",
+        "On-site production",
+        "Captions & cover frames",
+        "2 revision rounds"
+      ],
+      "outcomes": [
+        "Consistent, premium presence",
+        "Formats tested against real numbers",
+        "Footage you own"
+      ],
+      "timeline": "8 per month",
+      "pkg": [
+        "foundation",
+        "growth"
+      ]
+    },
+    {
+      "slug": "long-form-films",
+      "name": "Long-form films",
+      "category": "content",
+      "summary": "4 to 8 minute project films that build trust.",
+      "intro": "Reels create attention; long-form films build the trust that closes a high-value project. Full walkthroughs, the story behind the design, and the people who made it.",
+      "includes": [
+        "4 to 8 min, 16:9",
+        "Project walkthroughs",
+        "Interviews",
+        "YouTube-ready masters"
+      ],
+      "outcomes": [
+        "Proof of quality before the first meeting",
+        "Assets for website and sales",
+        "Content with a long shelf life"
+      ],
+      "timeline": "2 per month",
+      "pkg": [
+        "foundation",
+        "growth"
+      ]
+    },
+    {
+      "slug": "content-publishing",
+      "name": "Content calendar & publishing",
+      "category": "content",
+      "summary": "A 90-day plan, then captions, scheduling and posting.",
+      "intro": "Topics, formats, shoot schedule, posting dates and caption plan for every video, approved by Day 30. Then we handle captions, cover frames and scheduling across your agreed channels.",
+      "includes": [
+        "90-day calendar",
+        "Caption plan",
+        "Scheduling",
+        "Facebook, Instagram, YouTube"
+      ],
+      "outcomes": [
+        "No more irregular posting",
+        "Every video planned with a purpose",
+        "Time back for your team"
+      ],
+      "timeline": "Ongoing",
+      "pkg": [
+        "foundation",
+        "growth"
+      ]
+    },
+    {
+      "slug": "inquiry-system",
+      "name": "Inquiry & follow-up system",
+      "category": "growth",
+      "summary": "Forms, WhatsApp, lead tracking and reply templates.",
+      "intro": "Attention is wasted if inquiries go unanswered. We build the inquiry form, WhatsApp click-to-chat, a lead sheet with source tracking, reply templates and a follow-up schedule, live by Day 45.",
+      "includes": [
+        "Inquiry form",
+        "WhatsApp click-to-chat",
+        "Lead sheet & source tracking",
+        "Reply templates"
+      ],
+      "outcomes": [
+        "Every lead captured and traced",
+        "Faster, consistent replies",
+        "Know which content brings clients"
+      ],
+      "timeline": "Live by Day 45",
+      "pkg": [
+        "foundation",
+        "growth"
+      ]
+    },
+    {
+      "slug": "seo",
+      "name": "SEO",
+      "category": "growth",
+      "summary": "Rank for the searches your clients already make.",
+      "intro": "Search engine optimisation for long-term partners: ranking your site for searches like “interior designer near me” so inquiries arrive from people already looking for the service.",
+      "includes": [
+        "Technical SEO",
+        "Local search",
+        "Content plan",
+        "Monthly ranking report"
+      ],
+      "outcomes": [
+        "Inquiries from active searchers",
+        "Compounding organic traffic",
+        "Less reliance on paid reach"
+      ],
+      "timeline": "After Day 90",
+      "pkg": [
+        "embedded"
+      ]
+    },
+    {
+      "slug": "aeo",
+      "name": "AEO",
+      "category": "growth",
+      "summary": "Be the name AI assistants recommend.",
+      "intro": "Answer engine optimisation makes your company visible and cited when buyers ask AI assistants and AI search for recommendations, an increasingly common first step.",
+      "includes": [
+        "Entity & profile setup",
+        "Structured data",
+        "Citation building",
+        "AI answer monitoring"
+      ],
+      "outcomes": [
+        "Presence in AI answers",
+        "Consistent facts about you everywhere",
+        "Early advantage over competitors"
+      ],
+      "timeline": "After Day 90",
+      "pkg": [
+        "embedded"
+      ]
+    },
+    {
+      "slug": "ai-agents",
+      "name": "Custom AI agents",
+      "category": "growth",
+      "summary": "Answer, qualify and book, around the clock.",
+      "intro": "Agents that answer website and WhatsApp inquiries 24/7, ask the right qualifying questions and book consultations, handing warm leads to your team.",
+      "includes": [
+        "Website chat agent",
+        "WhatsApp agent",
+        "Lead qualification",
+        "Consultation booking"
+      ],
+      "outcomes": [
+        "Replies in seconds, any hour",
+        "Fewer lost leads",
+        "Your team talks only to qualified buyers"
+      ],
+      "timeline": "After Day 90",
+      "pkg": [
+        "embedded"
+      ]
+    },
+    {
+      "slug": "ai-sales-management",
+      "name": "AI sales management",
+      "category": "growth",
+      "summary": "Every lead tracked from inquiry to signed project.",
+      "intro": "A lead pipeline with automated follow-ups, lead scoring and reports, so you always know what is in motion and nothing slips between a first message and a signed contract.",
+      "includes": [
+        "Lead pipeline",
+        "Automated follow-ups",
+        "Lead scoring",
+        "Sales reports"
+      ],
+      "outcomes": [
+        "A clear view of your pipeline",
+        "Consistent follow-up",
+        "Forecasts based on real data"
+      ],
+      "timeline": "After Day 90",
+      "pkg": [
+        "embedded"
+      ]
+    },
+    {
+      "slug": "paid-advertising",
+      "name": "Paid advertising management",
+      "category": "growth",
+      "summary": "Scale what already works organically.",
+      "intro": "Ads built on the formats that already performed organically, launched only once the content and inquiry system are proven. Spend goes where the data says it should.",
+      "includes": [
+        "Campaign strategy",
+        "Creative from proven formats",
+        "Audience testing",
+        "Spend reporting"
+      ],
+      "outcomes": [
+        "Ads that start from evidence",
+        "Predictable cost per inquiry",
+        "Clear reporting"
+      ],
+      "timeline": "After Day 90",
+      "pkg": [
+        "embedded"
+      ]
+    }
+  ],
+  "industries": [
+    {
+      "slug": "interior-design",
+      "name": "Interior design",
+      "status": "open",
+      "filled": 0
+    }
+  ],
+  "faqs": {
+    "general": [
+      [
+        "What is Neutorium?",
+        "Neutorium is a research-led digital studio. We partner with up to fifteen companies per industry and build the website, premium films and inquiry system that turn their work into clients, over a 90-day engagement."
+      ],
+      [
+        "What does Neutorium do?",
+        "We research a company's market, then build its digital presence: a fast portfolio website, premium short reels and long-form films, a content calendar, and an inquiry and follow-up system. Long-term partners add SEO, AEO and custom AI agents."
+      ],
+      [
+        "Which industries does Neutorium work with?",
+        "We work one industry at a time and are currently partnering with interior design studios, residential and commercial. New industries open as we grow, each with fifteen partner seats."
+      ],
+      [
+        "How long does a partnership take?",
+        "The core engagement is 90 days in three phases: a live website by Day 30, a verified inquiry system by Day 60, and every contracted asset delivered by Day 90."
+      ],
+      [
+        "How do I start a project with Neutorium?",
+        "Use the project builder at neutorium.com/start to choose a partnership package or individual services. We reply within two working days."
+      ]
+    ],
+    "partnership": [
+      [
+        "Why only fifteen partners per industry?",
+        "Fifteen is the most we can serve with real attention while the research still compounds. Monthly production capacity also limits how many new partners start each month. When seats are full, new companies join a waiting list."
+      ],
+      [
+        "Why are fees not listed?",
+        "The right package depends on your numbers. On a short call we look at your monthly inquiries and average project value together, then talk about fees. We never lower the price for the same scope; a smaller budget means a smaller package."
+      ],
+      [
+        "Do you guarantee clients or revenue?",
+        "No. We guarantee delivery: every asset in the signed scope arrives within 90 days, or we keep working at no additional fee until it does. Results are tracked openly against your Day-14 baseline."
+      ],
+      [
+        "Is paid advertising included?",
+        "Not in the first 90 days. First we learn which content works and make sure inquiries are handled well; then ads scale what is already proven. Ad spend is always separate."
+      ],
+      [
+        "Who owns the work?",
+        "You do. Final videos, website content and your domain are yours after full payment. We only show the work in our portfolio with your written consent."
+      ],
+      [
+        "How do payments work?",
+        "Monthly. The first month is paid before kickoff, the second and third on Day 31 and Day 61."
+      ]
+    ],
+    "services": [
+      [
+        "Can I hire a single service without a partnership?",
+        "Yes. Every service can be hired on its own with a fixed scope and timeline. If it later grows into a partnership, the work carries over."
+      ],
+      [
+        "Can I combine services into my own package?",
+        "Yes. Pick what you need in the project builder and we come back with a scope, timeline and fee for that combination."
+      ],
+      [
+        "Do single services get the same research?",
+        "Every project starts with a short research brief, scaled to its size. The standard of work does not change with scope."
+      ],
+      [
+        "How many revisions are included?",
+        "Two rounds per asset as standard. Further rounds are agreed in writing before they start."
+      ]
+    ]
+  },
+  "settings": {
+    "email": "info@neutorium.com",
+    "socials": [
+      [
+        "Instagram",
+        "#"
+      ],
+      [
+        "Facebook",
+        "#"
+      ],
+      [
+        "YouTube",
+        "#"
+      ],
+      [
+        "LinkedIn",
+        "#"
+      ]
+    ],
+    "description": "Neutorium is a research-led digital studio. We partner with fifteen companies per industry and build the website, premium films and inquiry system that turn their work into clients."
+  },
+  "exampleArticle": {
+    "title": "What is answer engine optimisation (AEO)?",
+    "slug": "what-is-answer-engine-optimisation",
+    "question": "What is answer engine optimisation (AEO)?",
+    "answer": "Answer engine optimisation (AEO) is the practice of making a business easy for AI assistants such as ChatGPT, Perplexity and Google AI Overviews to understand, trust and quote. It combines crawlable pages, consistent business facts, structured data and content that answers real questions directly.",
+    "author": "Neutorium",
+    "body": "## How is AEO different from SEO?\n\nSEO aims for a high position in a list of links. AEO aims to be the source an assistant quotes or recommends in its answer. The foundations overlap: a fast, crawlable website and helpful content. AEO adds a stronger focus on clear entities, short direct answers and evidence that other sites mention you.\n\n## What do answer engines look for?\n\n- Pages they can read without running JavaScript\n- The same business facts on the website and every profile\n- A direct answer near the top of the page\n- Structured data that labels services, questions and answers\n- Independent mentions, reviews and original data\n\n## Where should a company start?\n\nStart by checking how assistants answer the questions your buyers ask today, then fix crawlability and business facts before writing new content.",
+    "faqs": [
+      {
+        "question": "Does AEO replace SEO?",
+        "answer": "No. AEO builds on SEO. Most answer engines use search indexes, so a site that is not indexed and trusted will rarely be quoted."
+      },
+      {
+        "question": "How long does AEO take?",
+        "answer": "Technical fixes can be done in weeks. Being cited consistently usually takes several months of publishing answer-first content and earning mentions."
+      }
+    ]
+  }
+}

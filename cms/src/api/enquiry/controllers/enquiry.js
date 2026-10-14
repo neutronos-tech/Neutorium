@@ -1,6 +1,7 @@
 const { factories } = require('@strapi/strapi');
 
-// Fields the public project builder may set. Status, owner and internal notes stay staff-only.
+// Fields the public project builder may set. Stage, owner and internal notes stay staff-only.
+// (Strapi 5 reserves the name "status" for draft/published, hence "stage".)
 const PUBLIC_FIELDS = [
   'name', 'email', 'phone', 'role', 'contactPref', 'company', 'industry', 'location', 'website',
   'route', 'package', 'services', 'goals', 'timeline', 'notes', 'brief',
@@ -29,7 +30,7 @@ module.exports = factories.createCoreController('api::enquiry.enquiry', ({ strap
     if (recent.length >= MAX_PER_WINDOW) return ctx.tooManyRequests('Too many submissions. Please try again later.');
     hits.set(ip, [...recent, now]);
 
-    const data = { status: 'new', source: 'website' };
+    const data = { stage: 'new', source: 'website' };
     for (const key of PUBLIC_FIELDS) if (input[key] !== undefined) data[key] = clean(input[key]);
 
     if (!data.name || !data.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {

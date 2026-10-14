@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useContent } from "../lib/content";
-import { pageMeta } from "../lib/seo";
+import { pageMeta, metaTags } from "../lib/seo";
 import { BRAND, SITE_URL } from "../data/site";
 
 const NOT_FOUND = {
@@ -13,17 +13,6 @@ const NOT_FOUND = {
   url: SITE_URL,
 };
 
-function setMeta(attr, key, value) {
-  let el = document.head.querySelector(`meta[${attr}="${key}"]`);
-  if (value == null) return el?.remove();
-  if (!el) {
-    el = document.createElement("meta");
-    el.setAttribute(attr, key);
-    document.head.appendChild(el);
-  }
-  el.setAttribute("content", value);
-}
-
 // Keeps <head> in sync with the current route. The same tags are written into the static
 // HTML at build time (scripts/prerender.mjs), so crawlers see them without running JS.
 export default function Seo() {
@@ -33,12 +22,16 @@ export default function Seo() {
   useEffect(() => {
     const m = pageMeta(pathname, content) || NOT_FOUND;
     document.title = m.title;
-    setMeta("name", "description", m.description);
-    setMeta("name", "robots", m.noindex ? "noindex, follow" : "index, follow, max-snippet:-1, max-image-preview:large");
-    setMeta("property", "og:title", m.title);
-    setMeta("property", "og:description", m.description);
-    setMeta("property", "og:url", m.url);
-    setMeta("property", "og:type", m.type === "article" ? "article" : "website");
+    // Drop tags that belonged to the previous page (e.g. article dates), then apply this page's.
+    document.head.querySelectorAll("meta[data-seo]").forEach((el) => el.remove());
+    for (const [attr, key, value] of metaTags(m)) {
+      document.head.querySelector(`meta[${attr}="${key}"]`)?.remove();
+      const el = document.createElement("meta");
+      el.setAttribute(attr, key);
+      el.setAttribute("content", value);
+      el.setAttribute("data-seo", "");
+      document.head.appendChild(el);
+    }
 
     let link = document.head.querySelector('link[rel="canonical"]');
     if (m.canonical) {

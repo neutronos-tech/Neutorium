@@ -16,7 +16,7 @@
       "type": "string",
       "required": true
     },
-    "status": {
+    "stage": {
       "type": "enumeration",
       "enum": [
         "backlog",

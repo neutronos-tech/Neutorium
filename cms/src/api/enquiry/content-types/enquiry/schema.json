@@ -12,7 +12,7 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "status": {
+    "stage": {
       "type": "enumeration",
       "enum": [
         "new",

@@ -1,5 +1,0 @@
-# Add to the shared Caddy in front of the site (TLS is automatic for the new hostname).
-cms.neutorium.com {
-	encode zstd gzip
-	reverse_proxy neutorium-cms:1337
-}

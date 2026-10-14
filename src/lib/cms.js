@@ -70,7 +70,7 @@ export async function loadCmsContent(base = CMS_URL) {
   }
   const s = settings?.data;
   const cmsServices = list(services).map(fromCmsService);
-  const cmsIndustries = list(industries).map((i) => ({ slug: i.slug, name: i.name, status: i.status, filled: i.filled ?? 0 }));
+  const cmsIndustries = list(industries).map((i) => ({ slug: i.slug, name: i.name, status: i.availability, filled: i.filled ?? 0 }));
 
   return {
     services: cmsServices.length ? cmsServices : SERVICES,

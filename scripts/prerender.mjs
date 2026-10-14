@@ -32,9 +32,12 @@ const template = readFileSync(path.join(dist, "index.html"), "utf8")
 
 if (!template.includes('<div id="root"></div>')) throw new Error("prerender: #root not found in dist/index.html");
 
+// Search console ownership tags (optional; DNS verification works too).
+const verify = { google: process.env.GOOGLE_SITE_VERIFICATION, bing: process.env.BING_SITE_VERIFICATION };
+
 const render = (route, meta) =>
   template
-    .replace("</head>", `    ${headHtml(meta)}\n  </head>`)
+    .replace("</head>", `    ${headHtml(meta, verify)}\n  </head>`)
     .replace('<div id="root"></div>', `<div id="root">${bodyHtml(route, meta, content)}</div>`);
 
 const routes = allRoutes(content);

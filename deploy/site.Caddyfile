@@ -9,6 +9,15 @@
 	root * /srv/current
 	encode zstd gzip
 
+	# Neutorium CMS (Strapi, container neutorium-cms) on the same domain:
+	# the panel at /addme, its admin API and plugin routes, the public content API and uploads.
+	@cms path /addme /addme/* /admin/* /api/* /uploads/* /content-manager/* /content-type-builder/* /upload/* /users-permissions/* /i18n/* /email/* /content-releases/* /review-workflows/*
+	handle @cms {
+		# Never index the CMS (and do not list /addme in robots.txt, which would advertise it).
+		header X-Robots-Tag "noindex, nofollow"
+		reverse_proxy neutorium-cms:1337
+	}
+
 	# Hashed build output: cache forever, 404 when missing.
 	handle /assets/* {
 		header Cache-Control "public, max-age=31536000, immutable"

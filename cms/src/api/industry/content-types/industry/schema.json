@@ -21,7 +21,7 @@
       "targetField": "name",
       "required": true
     },
-    "status": {
+    "availability": {
       "type": "enumeration",
       "enum": [
         "open",
