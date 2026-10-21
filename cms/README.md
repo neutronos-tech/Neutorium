@@ -57,15 +57,17 @@ triggers the deploy workflow one minute after the last change.
 
 ## Deploy on the VPS
 
-The CMS runs on the same domain as the site, so no DNS change is needed.
+The CMS runs on the same server and domain as the site, so no DNS change is needed. Sign in to the server as root
+and run:
 
-1. Copy this folder and `deploy/cms.compose.yml` to the server and create `.env` from `.env.example` with production
-   secrets, `DATABASE_PASSWORD`, `PUBLIC_URL=https://neutorium.com`, `ADMIN_EMAIL` and your `ADMIN_INITIAL_PASSWORD`.
-2. `docker compose -f cms.compose.yml up -d --build`, on the same Docker network as the `neutorium-site` container.
-3. Deploy the updated `deploy/site.Caddyfile` to the site container (it forwards `/addme`, `/admin`, `/api` and the
-   admin plugin routes to the CMS) and reload Caddy.
-4. In GitHub, set the repository variable `CMS_URL=https://neutorium.com` so site builds use CMS content.
-5. Open `https://neutorium.com/addme` and follow *First login* above.
+```bash
+curl -fsSL https://raw.githubusercontent.com/neutronos-tech/Neutorium/main/deploy/install-cms.sh | bash
+```
+
+It asks for the admin email and a first password, generates every other secret into `/opt/neutorium-cms/deploy/.env`,
+builds and starts the CMS and its database with Docker, and points `/addme` (and the API) at it in the site's Caddy.
+Run the same command again to update. Then open `https://neutorium.com/addme` and follow *First login* above.
+Once content is in, set the GitHub repository variable `CMS_URL=https://neutorium.com` so site builds use it.
 
 Back up the `db` and `uploads` volumes; they hold all content, enquiries and tasks.
 

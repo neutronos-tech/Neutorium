@@ -1,5 +1,4 @@
-# Neutorium CMS on the VPS. Copy to the server (e.g. /opt/neutorium-cms/compose.yml),
-# create .env next to it from cms/.env.example, then: docker compose up -d --build
+# Neutorium CMS on the VPS. Installed and updated by deploy/install-cms.sh (run as root on the server).
 # It is served on the main domain: the neutorium-site Caddy (deploy/site.Caddyfile) proxies
 # /addme, /admin and /api to neutorium-cms:1337, so both containers must share a network.
 services:
@@ -35,6 +34,7 @@ volumes:
   db:
 
 networks:
-  # The Docker network the neutorium-site container is on; adjust the name to match the server.
+  # The Docker network the neutorium-site container is on (install-cms.sh detects it).
   site:
     external: true
+    name: ${SITE_NETWORK:?set SITE_NETWORK in .env}
