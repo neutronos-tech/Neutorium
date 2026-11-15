@@ -43,20 +43,25 @@ jobs:
           npm run build
 
 
-      - name: Deploy to VPS
-        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+
         env:
-          SSH_KEY: ${{ secrets.NEUTORIUM_SITE_SSH_KEY }}
+          SSH_KEY_B64: ${{ secrets.NEUTORIUM_SITE_SSH_KEY_B64 }}
         run: |
+          set -euo pipefail
           install -m 700 -d ~/.ssh
-          printf '%s\n' "$SSH_KEY" > ~/.ssh/deploy_key
+
+          test -n "$SSH_KEY_B64"
+          printf '%s' "$SSH_KEY_B64" | base64 --decode > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
+
+          ssh-keygen -y -f ~/.ssh/deploy_key >/dev/null
 
           printf '%s\n' '187.126.115.19 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAgENfW4NqfPO1L+U5Y0B4goMHsq44XnVTdIhozr+jQt' >> ~/.ssh/known_hosts
 
           tar -C dist -czf - . | ssh -i ~/.ssh/deploy_key \
             -o IdentitiesOnly=yes \
             neutorium-deploy@187.126.115.19 "$GITHUB_SHA"
+
 
 
 
