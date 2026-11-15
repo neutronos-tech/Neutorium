@@ -42,6 +42,7 @@ jobs:
           npm ci
           npm run build
 
+
       - name: Deploy to VPS
         if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         env:
@@ -50,24 +51,32 @@ jobs:
           install -m 700 -d ~/.ssh
           printf '%s\n' "$SSH_KEY" > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
-          printf '%s\n' '187.53.130.231 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBeHmD2n1lIdhXC65IaK9DlavnrVsC5P1vM1pEJt7A1v' >> ~/.ssh/known_hosts
-          # The server-side forced command (deploy/receive-release.sh) unpacks
-          # stdin into a new release and swaps the live symlink.
-          tar -C dist -czf - . | ssh -i ~/.ssh/deploy_key -o IdentitiesOnly=yes \
-            neutorium-deploy@187.53.130.231 "$GITHUB_SHA"
 
-      - name: Verify live site
+          printf '%s\n' '187.126.115.19 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAgENfW4NqfPO1L+U5Y0B4goMHsq44XnVTdIhozr+jQt' >> ~/.ssh/known_hosts
+
+          tar -C dist -czf - . | ssh -i ~/.ssh/deploy_key \
+            -o IdentitiesOnly=yes \
+            neutorium-deploy@187.126.115.19 "$GITHUB_SHA"
+
+
+
+      - name: Verify VPS deployment
         if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         run: |
           expected=$(grep -o 'assets/index-[^"]*\.js' dist/index.html | head -1)
+
           for i in $(seq 1 10); do
-            if curl -fsS https://neutorium.com/ | grep -q "$expected"; then
-              echo "Live site serves $expected"; exit 0
+            if curl -fsS http://187.126.115.19/ \
+              -H 'Host: neutorium.com' | grep -Fq "$expected"; then
+              echo "VPS successfully serves $expected"
+              exit 0
             fi
             sleep 3
           done
-          echo "neutorium.com is not serving the new build ($expected)" >&2
+
+          echo "VPS deployment verification failed" >&2
           exit 1
+
 
       # Tell IndexNow engines (Bing, Yandex, Seznam, Naver; Bing feeds ChatGPT search and Copilot)
       # that the site changed. The key file is public/88ba80cc11e5a2ecd915ffc667fa5dc7.txt.
