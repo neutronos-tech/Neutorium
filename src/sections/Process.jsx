@@ -37,7 +37,7 @@ export default function Process({ n = "06" }) {
       <div className="h-scroll-inner flex flex-col justify-center py-24 md:py-0">
         <div className="wrap mb-12 flex items-end justify-between">
           <div>
-            <p className="label text-paper/50">({n}) Process</p>
+            <p className="label text-paper/50">Process</p>
             <h2 className="mt-6 text-[clamp(40px,5.6vw,92px)] font-medium leading-[0.95] tracking-[-0.05em]">
               How a partnership
               <br />

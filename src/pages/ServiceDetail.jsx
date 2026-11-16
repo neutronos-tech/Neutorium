@@ -29,7 +29,7 @@ export default function ServiceDetail() {
 
       <section className="wrap grid gap-16 border-t border-line py-24 md:grid-cols-12 md:py-32">
         <div className="md:col-span-6">
-          <p className="label text-mute">(01) Overview</p>
+          <p className="label text-mute">Overview</p>
           <Rise>
             <p className="mt-8 text-[clamp(22px,2.2vw,34px)] font-light leading-[1.25] tracking-[-0.02em]">{s.intro}</p>
           </Rise>
@@ -68,7 +68,7 @@ export default function ServiceDetail() {
 
       <section className="bg-ink text-paper">
         <div className="wrap py-24 md:py-32">
-          <p className="label text-paper/50">(02) How it runs</p>
+          <p className="label text-paper/50">How it runs</p>
           <Lines
             className="mt-6 text-[clamp(40px,5.6vw,92px)] font-medium leading-[0.95] tracking-[-0.05em]"
             lines={["Four steps.", <span className="text-paper/40">No surprises.</span>]}
@@ -104,7 +104,7 @@ export default function ServiceDetail() {
       {related.length > 0 && (
         <section className="wrap grid gap-16 py-24 md:grid-cols-12 md:py-32">
           <div className="md:col-span-5">
-            <p className="label text-mute">(03) Related</p>
+            <p className="label text-mute">Related</p>
             <h2 className="mt-6 text-[clamp(32px,4vw,64px)] font-medium leading-[0.95] tracking-[-0.05em]">
               More in <span className="text-mute">{cat.name.toLowerCase()}.</span>
             </h2>

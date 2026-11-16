@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useLocation, useSearchParams } from "react-router-dom";
 import { motion, AnimatePresence } from "motion/react";
 import { useReady } from "../lib/ready";
 import { resetScroll } from "../lib/smooth";
@@ -93,6 +93,7 @@ export default function Start() {
   C = useContent();
   const ready = useReady();
   const [params] = useSearchParams();
+  const picked = useLocation().state?.ambitions;
 
   const [data, setData] = useState(() => {
     const base = { ...EMPTY, ...(load() || {}) };
@@ -104,6 +105,11 @@ export default function Start() {
     if (sv && serviceBySlug(sv)) {
       base.path = "custom";
       if (!base.services.includes(sv)) base.services = [...base.services, sv];
+    }
+    // Ambitions chosen on the home page are carried into the notes, once.
+    if (Array.isArray(picked) && picked.length) {
+      const line = "Our ambitions: " + picked.join(", ") + ".";
+      if (!base.notes.includes(line)) base.notes = base.notes ? [base.notes, line].join(String.fromCharCode(10)) : line;
     }
     return base;
   });

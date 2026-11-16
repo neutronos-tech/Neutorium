@@ -13,7 +13,7 @@ const STATIC_PAGES = {
   "/": {
     title: "Neutorium · Digital Authority & Client Acquisition Studio",
     description: DESCRIPTION,
-    h1: "We research what's next. Then we build it with you.",
+    h1: "We study how people decide. Then we build your brand around it.",
     faqKey: "general",
   },
   "/about": {
@@ -21,6 +21,30 @@ const STATIC_PAGES = {
     description: "Neutorium builds the digital presence and systems that let great companies be found, trusted and chosen online, working with fifteen partners per industry.",
     h1: "A studio for companies whose work deserves more.",
     crumb: "About",
+  },
+  "/industries": {
+    title: "Industries · Systems Built Around How Your Industry Buys · Neutorium",
+    description: "Neutorium builds research-led digital systems for interior design and real estate, healthcare, and product businesses, with fifteen partner seats per industry.",
+    h1: "Your industry. Its real problems.",
+    crumb: "Industries",
+  },
+  "/industries/interior-design": {
+    title: "Interior Design, Architecture & Real Estate · What Is Going Wrong and Why · Neutorium",
+    description: "Where interior, architecture and real estate firms lose clients online, why it happens, and the system Neutorium builds to show project quality and earn trust before the first meeting.",
+    h1: "Interior & real estate",
+    crumb: "Interior & real estate",
+  },
+  "/industries/healthcare": {
+    title: "Healthcare Providers & Health Services · Neutorium",
+    description: "Accessible service information, patient trust, accurate routing and clear patient communication, built with privacy, consent and clinical accuracy first.",
+    h1: "Healthcare",
+    crumb: "Healthcare",
+  },
+  "/industries/product-brands": {
+    title: "Product Businesses, Retail & Consumer Brands · Neutorium",
+    description: "Clarify what makes the product different, present it better and connect demand to sales data: product content, landing pages, campaign creatives and measurement.",
+    h1: "Product brands",
+    crumb: "Product brands",
   },
   "/research": {
     title: "Research · Market Intelligence, Competitor Scans and Baselines · Neutorium",
@@ -253,7 +277,7 @@ export function headHtml(m, verify) {
 // Plain, semantic HTML of the page's key facts, placed inside #root at build time so crawlers
 // and answer engines that do not run JavaScript still read real content. React replaces it.
 export function bodyHtml(path, m, content) {
-  const nav = `<nav><a href="/">Home</a> <a href="/about">About</a> <a href="/research">Research</a> <a href="/partnership">Partnership</a> <a href="/services">Services</a> <a href="/insights">Insights</a> <a href="/start">Start a project</a></nav>`;
+  const nav = `<nav><a href="/">Home</a> <a href="/industries">Industries</a> <a href="/about">About</a> <a href="/research">Research</a> <a href="/partnership">Partnership</a> <a href="/services">Services</a> <a href="/insights">Insights</a> <a href="/start">Start a project</a></nav>`;
   const parts = [`<h1>${esc(m.h1)}</h1>`, `<p>${esc(m.description)}</p>`];
   const ul = (items) => `<ul>${items.map((i) => `<li>${i}</li>`).join("")}</ul>`;
 

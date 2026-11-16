@@ -28,7 +28,7 @@ export default function About() {
       />
 
       <section className="wrap border-t border-line py-24 md:py-40">
-        <p className="label mb-10 text-mute">(01) Our view</p>
+        <p className="label mb-10 text-mute">Our view</p>
         <Rise>
           <p className="max-w-[26ch] text-[clamp(30px,4.6vw,76px)] font-light leading-[1.06] tracking-[-0.035em]">
             Most companies do remarkable work and present it as an afterthought. We close the distance between
@@ -40,7 +40,7 @@ export default function About() {
       <section className="wrap grid gap-16 border-t border-line py-24 md:grid-cols-12 md:py-40">
         <div className="md:col-span-5">
           <div className="md:sticky md:top-28">
-            <p className="label text-mute">(02) Principles</p>
+            <p className="label text-mute">Principles</p>
             <Lines
               className="mt-6 text-[clamp(40px,5.6vw,92px)] font-medium leading-[0.95] tracking-[-0.05em]"
               lines={["Rules we", <span className="text-mute">do not bend.</span>]}
@@ -55,7 +55,7 @@ export default function About() {
 
       <section className="wrap grid gap-16 border-t border-line py-24 md:grid-cols-12 md:py-40">
         <div className="md:col-span-5">
-          <p className="label text-mute">(03) Industries</p>
+          <p className="label text-mute">Industries</p>
           <Lines
             className="mt-6 text-[clamp(40px,5.6vw,92px)] font-medium leading-[0.95] tracking-[-0.05em]"
             lines={["Not one industry.", <span className="text-mute">One at a time.</span>]}
@@ -74,7 +74,7 @@ export default function About() {
       </section>
 
       <section className="wrap border-t border-line py-24 md:py-40">
-        <p className="label text-mute">(04) How we are built</p>
+        <p className="label text-mute">How we are built</p>
         <dl className="mt-12 grid gap-8 sm:grid-cols-2 md:grid-cols-4">
           {team.map(([t, d], i) => (
             <Rise key={t} delay={i * 0.08} className="border-t border-ink/15 pt-4">

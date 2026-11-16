@@ -26,7 +26,7 @@ export default function Manifesto() {
 
   return (
     <section id="manifesto" ref={ref} className="wrap py-32 md:py-48">
-      <p className="label mb-10 text-mute">(01) Manifesto</p>
+      <p className="label mb-10 text-mute">Manifesto</p>
       <p className="max-w-[24ch] text-[clamp(30px,4.6vw,76px)] font-light leading-[1.06] tracking-[-0.035em]">
         {text.split(" ").map((w, i) => (
           <span key={i} className="mw mr-[0.25em] inline-block">{w}</span>

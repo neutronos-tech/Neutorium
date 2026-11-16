@@ -8,7 +8,7 @@ export default function Packages({ n = "04" }) {
     <section id="packages" className="wrap py-24 md:py-40">
       <div className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
         <div>
-          <p className="label text-mute">({n}) Partner packages</p>
+          <p className="label text-mute">Partner packages</p>
           <Lines
             className="mt-6 text-[clamp(40px,5.6vw,92px)] font-medium leading-[0.95] tracking-[-0.05em]"
             lines={["Choose how deep", <span className="text-mute">we go together.</span>]}

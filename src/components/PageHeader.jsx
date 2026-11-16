@@ -4,7 +4,8 @@ import { useReady } from "../lib/ready";
 
 const ease = [0.16, 1, 0.3, 1];
 
-// Opening block for inner pages, in the same type and spacing as the home hero.
+// Opening block for inner pages: a still, spacious title, then one white block that holds the
+// summary on the left and the page's own links or chips on the right.
 export default function PageHeader({ label, lines, text, children }) {
   const ready = useReady();
   const fade = (delay) => ({
@@ -14,32 +15,25 @@ export default function PageHeader({ label, lines, text, children }) {
   });
 
   return (
-    <section className="wrap pb-20 pt-32 md:pb-28 md:pt-44">
-      <motion.div {...fade(0.1)} className="label flex justify-between text-mute">
-        <span>{label}</span>
-        <span>Neutorium</span>
-      </motion.div>
-      <Lines
-        as="h1"
-        play={ready}
-        delay={0.05}
-        className="mt-8 text-[clamp(44px,8.4vw,140px)] font-medium leading-[0.92] tracking-[-0.055em]"
-        lines={lines}
-      />
-      {(text || children) && (
-        <div className="mt-14 grid gap-10 md:grid-cols-12 md:items-end">
-          {text && (
-            <motion.p {...fade(0.5)} className="max-w-md text-[15px] leading-relaxed text-ink/70 md:col-span-5">
-              {text}
-            </motion.p>
-          )}
-          {children && (
-            <motion.div {...fade(0.6)} className="md:col-span-6 md:col-start-7">
-              {children}
+    <section className="sunlit relative overflow-hidden">
+      <div className="wrap relative pb-14 pt-32 md:pb-20 md:pt-44">
+        <div className="mx-auto w-full max-w-[1180px]">
+          <motion.p {...fade(0.1)} className="label text-mute">{label}</motion.p>
+          <Lines
+            as="h1"
+            play={ready}
+            delay={0.05}
+            className="mt-6 text-[clamp(40px,6.6vw,108px)] font-medium leading-[0.95] tracking-[-0.05em]"
+            lines={lines}
+          />
+          {(text || children) && (
+            <motion.div {...fade(0.5)} className="mt-12 grid gap-8 rounded-[28px] border border-ink/10 bg-white/80 p-7 backdrop-blur-sm md:mt-16 md:grid-cols-12 md:items-center md:p-10">
+              {text && <p className="max-w-lg text-base leading-relaxed text-ink/75 md:col-span-6 md:text-lg">{text}</p>}
+              {children && <div className="md:col-span-5 md:col-start-8">{children}</div>}
             </motion.div>
           )}
         </div>
-      )}
+      </div>
     </section>
   );
 }

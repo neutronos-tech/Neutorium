@@ -6,6 +6,10 @@
   --color-ink: #741516;
   --color-mute: #a37472;
   --color-line: #ead6d5;
+  /* Two supporting colours, used sparingly. "ember" is a soft rose for emphasis on dark
+     grounds (no gold anywhere); night is a deep wine for depth. */
+  --color-ember: #f2b6ab;
+  --color-night: #1c0d0b;
   --font-sans: "Geist", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "Geist Mono", ui-monospace, monospace;
   --font-serif: "Instrument Serif", ui-serif, Georgia, serif;
@@ -22,6 +26,8 @@ body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
 }
+:where(a, button):focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+button { cursor: pointer; }
 ::selection { background: var(--color-ink); color: var(--color-paper); }
 
 .wrap { width: 100%; max-width: 1600px; margin-inline: auto; padding-inline: 20px; }
@@ -64,7 +70,10 @@ body {
   border-radius: 999px; background: var(--color-ink);
   transition: transform 0.45s var(--ease-out-expo);
 }
-.cursor.is-hover .cursor-dot { transform: scale(4.5); opacity: 0.25; }
+.cursor.is-hover .cursor-dot { transform: scale(5.5); opacity: 0.22; filter: blur(1px); }
+/* Over text the dot swells, softens and inverts what is under it. */
+.cursor.is-text { mix-blend-mode: difference; }
+.cursor.is-text .cursor-dot { transform: scale(3.6); filter: blur(1.5px); background: #fff; }
 @media (pointer: coarse) { .cursor { display: none; } }
 
 .h-scroll-track { display: flex; flex-direction: column; gap: 16px; }
@@ -73,6 +82,125 @@ body {
   .h-scroll-inner { position: sticky; top: 0; height: 100vh; overflow: hidden; }
   .h-scroll-track { flex-direction: row; width: max-content; gap: 24px; }
   .h-scroll-card { width: 34vw; height: 56vh; }
+  .h-scroll-long { height: 560vh; }
+  .h-scroll-long .h-scroll-card { height: 50vh; min-height: 300px; }
+}
+
+/* Pinned four-step process (all screen sizes) */
+@media (prefers-reduced-motion: no-preference) {
+  .pin-long { height: 380vh; }
+  .pin-inner { position: sticky; top: 0; height: 100vh; height: 100svh; }
+}
+
+/* The page opens inside a browser-style tab: an ink frame, a paper panel, and the active
+   nav tab joined to the panel with two inverted corners. */
+.tab-on { position: relative; background: #fff; color: var(--color-ink); }
+.tab-on::before, .tab-on::after {
+  content: ""; position: absolute; bottom: 0; width: 14px; height: 14px; pointer-events: none;
+}
+.tab-on::before { left: -14px; background: radial-gradient(circle at 0 0, transparent 13.5px, #fff 14px); }
+.tab-on::after { right: -14px; background: radial-gradient(circle at 100% 0, transparent 13.5px, #fff 14px); }
+
+/* A soft light that follows the pointer across a card (set --mx / --my on mousemove) */
+.spot::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0; z-index: 0;
+  background: radial-gradient(340px circle at var(--mx, 50%) var(--my, 50%), color-mix(in oklab, var(--color-blush) 85%, transparent), transparent 70%);
+  transition: opacity 0.5s;
+}
+.spot:hover::before { opacity: 1; }
+.spot-dark::before { background: radial-gradient(340px circle at var(--mx, 50%) var(--my, 50%), rgb(247 238 237 / 0.16), transparent 70%); }
+
+/* Slow counter-rotating rings in the five-layer diagram */
+.ring-spin, .ring-spin-back { transform-origin: 50px 50px; animation: ringSpin 60s linear infinite; }
+.ring-spin-back { animation-duration: 90s; animation-direction: reverse; }
+@keyframes ringSpin { to { transform: rotate(360deg); } }
+
+/* Living grounds: the wine and night bands are never one flat colour. Three soft lights
+   drift across them slowly, so the surface always feels lit. */
+.living, .living-night {
+  background-color: var(--color-night);
+  background-image:
+    radial-gradient(45% 55% at 30% 30%, #4a211c 0%, transparent 70%),
+    radial-gradient(40% 50% at 70% 40%, #0e0706 0%, transparent 70%),
+    radial-gradient(50% 60% at 50% 70%, #3a1512 0%, transparent 72%);
+  background-size: 190% 190%, 170% 170%, 210% 210%;
+  animation: living 13s ease-in-out infinite alternate;
+}
+@keyframes living {
+  0% { background-position: 0% 0%, 100% 10%, 40% 100%; }
+  50% { background-position: 60% 40%, 30% 70%, 90% 30%; }
+  100% { background-position: 100% 90%, 0% 100%, 10% 0%; }
+}
+/* The same idea on white: a faint rose light that wanders. */
+.glow-soft {
+  background-image:
+    radial-gradient(38% 46% at 30% 40%, rgb(242 182 171 / 0.35) 0%, transparent 70%),
+    radial-gradient(34% 40% at 70% 60%, rgb(116 21 22 / 0.10) 0%, transparent 70%);
+  background-size: 200% 200%, 220% 220%;
+  animation: living 26s ease-in-out infinite alternate;
+}
+
+/* Sunlight. Light sections are lit the way a room is: two soft patches of warm light and one
+   long beam, as if through a window, that cross the surface so slowly the eye never catches
+   them moving. Add .sunlit to a section. */
+.sunlit { isolation: isolate; }
+.sunlit::before, .sunlit::after { content: ""; position: absolute; inset: 0; pointer-events: none; z-index: -1; }
+.sunlit::before {
+  background-image:
+    radial-gradient(42% 52% at 30% 30%, rgb(255 255 255 / 0.95) 0%, transparent 70%),
+    radial-gradient(38% 46% at 70% 55%, rgb(242 182 171 / 0.42) 0%, transparent 72%),
+    radial-gradient(46% 56% at 55% 80%, rgb(255 236 224 / 0.8) 0%, transparent 72%);
+  background-size: 190% 190%, 170% 170%, 210% 210%;
+  animation: living 16s ease-in-out infinite alternate;
+}
+.sunlit::after {
+  background-image: linear-gradient(112deg, transparent 38%, rgb(255 255 255 / 0.55) 46%, rgb(255 244 236 / 0.35) 52%, transparent 60%);
+  background-size: 320% 100%;
+  animation: sunbeam 24s ease-in-out infinite alternate;
+}
+/* The dark grounds get the same beam, much fainter. */
+.living-night { position: relative; isolation: isolate; }
+.living-night::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none; z-index: -1;
+  background-image: linear-gradient(112deg, transparent 38%, rgb(255 236 224 / 0.09) 47%, rgb(242 182 171 / 0.06) 53%, transparent 62%);
+  background-size: 320% 100%;
+  animation: sunbeam 24s ease-in-out infinite alternate;
+}
+@keyframes sunbeam { from { background-position: 100% 0; } to { background-position: 0% 0; } }
+
+/* The line under the active stair that shows how long it has left. */
+.hold-line { animation: holdLine linear both; }
+@keyframes holdLine { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+/* The footer wordmark carries a slow band of light. */
+.wordmark-lit {
+  background: linear-gradient(100deg, var(--color-ink) 30%, #c0504a 46%, var(--color-ember) 50%, #c0504a 54%, var(--color-ink) 70%);
+  background-size: 300% 100%;
+  animation: sunbeam 24s ease-in-out infinite alternate;
+}
+
+/* Photographs rest in the brand's wine tone and wake into full colour on hover or focus. */
+.photo { position: relative; overflow: hidden; background: #7a4744; }
+.photo img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  filter: grayscale(1) contrast(1.05); mix-blend-mode: luminosity; opacity: 0.92;
+  transform: scale(1.02);
+  transition: filter 0.9s var(--ease-out-expo), opacity 0.9s, transform 1.6s var(--ease-out-expo);
+}
+.photo::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(180deg, rgb(242 182 171 / 0.18), rgb(116 21 22 / 0.28));
+  mix-blend-mode: soft-light; transition: opacity 0.9s;
+}
+.group:hover .photo img, .group:focus-visible .photo img, .photo.is-live img {
+  filter: none; mix-blend-mode: normal; opacity: 1; transform: scale(1.07);
+}
+.group:hover .photo::after, .group:focus-visible .photo::after, .photo.is-live::after { opacity: 0; }
+
+/* Paper grain over the whole page */
+body::after {
+  content: ""; position: fixed; inset: 0; z-index: 80; pointer-events: none; opacity: 0.07; mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.3 0 0 0 0 0.1 0 0 0 0 0.1 0 0 0 0.9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 @media (prefers-reduced-motion: reduce) {

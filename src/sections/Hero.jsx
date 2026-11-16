@@ -1,18 +1,18 @@
-import { lazy, Suspense } from "react";
+import { Link } from "react-router-dom";
 import { motion } from "motion/react";
 import { Lines } from "../components/Reveal";
+import { Arrow } from "../components/Icons";
+import { Ticker } from "../components/Motion";
+import { Shapeshifter } from "../components/Art";
 import { scrollTo } from "../lib/smooth";
 import { useReady } from "../lib/ready";
+import { HERO, MARQUEE } from "../data/home";
 
-const DotField = lazy(() => import("../components/DotField"));
 const ease = [0.16, 1, 0.3, 1];
 
-const stats = [
-  ["15", "Partner seats per industry, never more"],
-  ["90", "Day system, every asset guaranteed"],
-  ["R&D", "Research behind every engagement"],
-];
-
+// One calm screen: a short claim on the left, and on the right a cloud of points that keeps
+// becoming something else (a brain, a neuron, a network, DNA, a growth chart). The capabilities
+// drift along the bottom edge of the same section.
 export default function Hero() {
   const ready = useReady();
   const fade = (delay) => ({
@@ -22,58 +22,50 @@ export default function Hero() {
   });
 
   return (
-    <section id="top" className="relative flex min-h-[100svh] flex-col overflow-hidden pt-28 md:pt-36">
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[60%] md:h-[70%]">
-        <Suspense fallback={null}>
-          <DotField />
-        </Suspense>
-        <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-paper to-transparent" />
-        <div className="absolute inset-x-0 bottom-0 h-[55%] bg-gradient-to-t from-paper via-paper/90 to-transparent md:hidden" />
-      </div>
+    <section id="top" className="sunlit relative flex min-h-[100svh] flex-col overflow-hidden">
+      <Shapeshifter className="absolute inset-x-0 top-[30%] h-[34vh] w-full opacity-70 md:inset-y-0 md:left-[40%] md:top-0 md:h-full md:w-[60%] md:opacity-100" />
 
-      <div className="wrap relative flex flex-1 flex-col">
-        <motion.div {...fade(0.1)} className="label flex justify-between text-mute">
-          <span>Digital authority &amp; client acquisition</span>
-          <span>(2026)</span>
-        </motion.div>
+      <div className="wrap pointer-events-none relative flex flex-1 flex-col justify-center pb-10 pt-28 md:pt-36">
+        <div className="mx-auto w-full max-w-[1180px]">
+          <Lines
+            as="h1"
+            play={ready}
+            delay={0.05}
+            className="text-[clamp(44px,min(8vw,13vh),132px)] font-medium leading-[0.94] tracking-[-0.05em]"
+            lines={HERO.lines.map(([text, tone], i) =>
+              tone === "serif" ? <span key={i}>{text[0]} <em className="font-serif font-normal tracking-[-0.02em]">{text[1]}</em></span> : text
+            )}
+          />
 
-        <Lines
-          as="h1"
-          play={ready}
-          delay={0.05}
-          className="mt-8 text-[clamp(44px,8.4vw,140px)] font-medium leading-[0.92] tracking-[-0.055em]"
-          lines={[
-            "We research",
-            <>what's <em className="font-serif font-normal tracking-[-0.02em]">next.</em></>,
-            <span className="text-mute">Then we build</span>,
-            <span className="text-mute">it with you.</span>,
-          ]}
-        />
-
-        <div className="mt-auto grid grid-cols-1 gap-10 pb-8 pt-16 md:grid-cols-12 md:items-end">
-          <motion.p {...fade(0.5)} className="max-w-sm text-[15px] leading-relaxed text-ink/70 md:col-span-4">
-            Neutorium studies industries, partners with fifteen companies inside each one, and
-            builds the website, films and inquiry system that turn their work into clients.
+          <motion.p {...fade(0.5)} className="mt-[36vh] max-w-xs text-base leading-relaxed text-ink/75 md:mt-10 md:text-lg">
+            {HERO.line}
           </motion.p>
 
-          <div className="grid grid-cols-3 gap-4 md:col-span-6 md:col-start-6">
-            {stats.map(([n, t], i) => (
-              <motion.div key={n} {...fade(0.6 + i * 0.08)} className="border-t border-ink/15 pt-3">
-                <div className="text-2xl font-medium tracking-[-0.03em] md:text-3xl">{n}</div>
-                <div className="mt-1 text-xs leading-snug text-mute md:text-sm">{t}</div>
-              </motion.div>
-            ))}
-          </div>
-
-          <motion.button
-            {...fade(0.9)}
-            onClick={() => scrollTo("#manifesto")}
-            className="label hidden items-center justify-end gap-2 text-mute md:col-span-1 md:col-start-12 md:flex"
-          >
-            Scroll <span className="scroll-line" />
-          </motion.button>
+          <motion.div {...fade(0.65)} className="pointer-events-auto mt-7 flex flex-wrap items-center gap-x-7 gap-y-3">
+            <Link
+              to="/start"
+              className="group inline-flex h-14 items-center gap-3 rounded-full bg-ink px-7 text-paper transition-transform duration-300 ease-out-expo hover:-translate-y-0.5 active:translate-y-0"
+            >
+              Start a conversation
+              <Arrow className="h-4 w-4 transition-transform duration-500 ease-out-expo group-hover:translate-x-1" />
+            </Link>
+            <button onClick={() => scrollTo("#approach")} className="nav-link py-3 text-sm">See how it works</button>
+          </motion.div>
         </div>
       </div>
+
+      <motion.div {...fade(0.9)} className="relative border-t border-ink/10 py-5" aria-label="Capabilities">
+        <Ticker speed={2.2}>
+          <div className="flex items-center gap-10 pr-10">
+            {MARQUEE.map((w) => (
+              <span key={w} className="flex items-center gap-10 text-[clamp(20px,2.4vw,34px)] font-light tracking-[-0.03em] text-ink/80">
+                {w}
+                <span className="h-1.5 w-1.5 rounded-full bg-ink/40" />
+              </span>
+            ))}
+          </div>
+        </Ticker>
+      </motion.div>
     </section>
   );
 }

@@ -1,0 +1,8 @@
+Stand-in photographs from Unsplash (free Unsplash License). They are not Neutorium or client work
+and should be replaced with real project photography when it exists.
+
+hero-ribs.webp               https://unsplash.com/photos/photo-1567201864585-6baec9110dac
+industry-interior.webp       https://unsplash.com/photos/photo-1762544968153-b9b47435fefd
+industry-healthcare.webp     https://unsplash.com/photos/photo-1777269749032-d8d458ae594d
+industry-manufacturing.webp  https://unsplash.com/photos/photo-1717386255773-1e3037c81788
+(the ids above are the images.unsplash.com file ids)

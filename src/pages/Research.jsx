@@ -19,14 +19,14 @@ export default function ResearchPage() {
       <PageHeader
         label="Research"
         lines={["We research", <>before we <em className="font-serif font-normal tracking-[-0.02em]">build.</em></>]}
-        text="Every engagement starts with evidence. In a partnership it is the first fourteen days; on its own, it becomes a report your team can act on."
+        text="We research whole industries, in depth: how customers behave, what they overlook, and the small things that carry heavy weight. Your business gets the benefit of that work."
       />
       <Research n="01" />
 
       <section className="bg-ink text-paper">
         <div className="wrap grid gap-16 py-24 md:grid-cols-12 md:py-40">
           <div className="md:col-span-6">
-            <p className="label text-paper/50">(02) Free, no commitment</p>
+            <p className="label text-paper/50">Free, no commitment</p>
             <Lines
               className="mt-6 text-[clamp(40px,5.6vw,92px)] font-medium leading-[0.95] tracking-[-0.05em]"
               lines={["The digital", <span className="text-paper/40">presence snapshot.</span>]}
@@ -51,10 +51,10 @@ export default function ResearchPage() {
 
       <section className="wrap grid gap-16 py-24 md:grid-cols-12 md:py-40">
         <div className="md:col-span-5">
-          <p className="label text-mute">(03) Research services</p>
+          <p className="label text-mute">Research services</p>
           <Lines
             className="mt-6 text-[clamp(40px,5.6vw,92px)] font-medium leading-[0.95] tracking-[-0.05em]"
-            lines={["Hire the", <span className="text-mute">research alone.</span>]}
+            lines={["Three ways", <span className="text-mute">to use our research.</span>]}
           />
         </div>
         <div className="md:col-span-7">

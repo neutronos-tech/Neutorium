@@ -27,7 +27,7 @@ export default function ServicesPage() {
 
       <section className="wrap grid gap-16 border-t border-line py-24 md:grid-cols-12 md:py-40">
         <div className="md:col-span-5">
-          <p className="label text-mute">(02) Questions</p>
+          <p className="label text-mute">Questions</p>
           <Lines
             className="mt-6 text-[clamp(40px,5.6vw,92px)] font-medium leading-[0.95] tracking-[-0.05em]"
             lines={["Before", <span className="text-mute">you ask.</span>]}

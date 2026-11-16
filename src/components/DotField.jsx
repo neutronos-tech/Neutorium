@@ -6,6 +6,8 @@ const vertex = [
   "uniform float uTime;",
   "uniform vec2 uMouse;",
   "uniform float uScale;",
+  "uniform vec2 uClick;",
+  "uniform float uClickT;",
   "varying float vAlpha;",
   "void main() {",
   "  vec3 p = position;",
@@ -14,6 +16,8 @@ const vertex = [
   "  vec2 m = vec2(uMouse.x * 6.0, -uMouse.y * 3.5);",
   "  float d = distance(p.xz, m);",
   "  e += exp(-d * d * 0.35) * 0.9;",
+  "  float r = distance(p.xz, vec2(uClick.x * 6.0, -uClick.y * 3.5)) - uClickT * 5.0;",
+  "  e += exp(-r * r * 2.5) * exp(-uClickT * 1.1) * 1.1;",
   "  p.y = e;",
   "  vec4 mv = modelViewMatrix * vec4(p, 1.0);",
   "  gl_Position = projectionMatrix * mv;",
@@ -39,8 +43,16 @@ function Field({ reduced }) {
   useEffect(() => {
     const onMove = (e) =>
       target.current.set((e.clientX / innerWidth) * 2 - 1, -(e.clientY / innerHeight) * 2 + 1);
+    const onDown = (e) => {
+      uniforms.uClick.value.set((e.clientX / innerWidth) * 2 - 1, -(e.clientY / innerHeight) * 2 + 1);
+      uniforms.uClickT.value = 0;
+    };
     addEventListener("pointermove", onMove);
-    return () => removeEventListener("pointermove", onMove);
+    if (!reduced) addEventListener("pointerdown", onDown);
+    return () => {
+      removeEventListener("pointermove", onMove);
+      removeEventListener("pointerdown", onDown);
+    };
   }, []);
 
   const geometry = useMemo(() => {
@@ -63,12 +75,15 @@ function Field({ reduced }) {
       uTime: { value: 0 },
       uMouse: { value: mouse.current },
       uScale: { value: Math.min(window.devicePixelRatio, 2) },
+      uClick: { value: new THREE.Vector2(0, 0) },
+      uClickT: { value: 99 },
     }),
     []
   );
 
   useFrame((_, dt) => {
     if (!reduced) uniforms.uTime.value += dt;
+    uniforms.uClickT.value += dt;
     mouse.current.lerp(target.current, 0.06);
   });
 

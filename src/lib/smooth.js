@@ -12,7 +12,7 @@ let lenis = null;
 
 export function startLenis() {
   if (prefersReduced()) return null;
-  lenis = new Lenis({ duration: 1.15, smoothWheel: true });
+  lenis = new Lenis({ lerp: 0.065, wheelMultiplier: 0.95, smoothWheel: true });
   lenis.on("scroll", ScrollTrigger.update);
   const raf = (time) => lenis.raf(time * 1000);
   gsap.ticker.add(raf);

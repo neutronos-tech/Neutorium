@@ -42,7 +42,7 @@ export default function Partnership({ n = "03" }) {
     <section id="partnership" ref={ref} className="relative border-t border-line py-24 md:py-40">
       <div className="wrap grid gap-16 md:grid-cols-12">
         <div className="md:col-span-6">
-          <p className="label text-mute">({n}) Partnership model</p>
+          <p className="label text-mute">Partnership model</p>
           <Lines
             className="mt-6 text-[clamp(40px,5.6vw,92px)] font-medium leading-[0.95] tracking-[-0.05em]"
             lines={["Fifteen partners.", "Per industry.", <span className="text-mute">Full attention.</span>]}

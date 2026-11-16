@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { startLenis, stopScroll, resetScroll, scrollTo, ScrollTrigger } from "./lib/smooth";
 import { ReadyContext } from "./lib/ready";
@@ -17,6 +17,8 @@ import NotFound from "./pages/NotFound";
 import Insights from "./pages/Insights";
 import Article from "./pages/Article";
 import Seo from "./components/Seo";
+import Industries from "./pages/Industries";
+import Industry from "./pages/Industry";
 
 
 export default function App() {
@@ -61,6 +63,8 @@ export default function App() {
       <main key={pathname}>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/industries" element={<Industries />} />
+          <Route path="/industries/:slug" element={<Industry />} />
           <Route path="/about" element={<About />} />
           <Route path="/research" element={<Research />} />
           <Route path="/partnership" element={<Partnership />} />

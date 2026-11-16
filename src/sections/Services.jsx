@@ -14,7 +14,7 @@ export default function Services({ n = "05" }) {
     <section id="services" className="wrap grid gap-16 border-t border-line py-24 md:grid-cols-12 md:py-40">
       <div className="md:col-span-5">
         <div className="md:sticky md:top-28">
-          <p className="label text-mute">({n}) Single services</p>
+          <p className="label text-mute">Single services</p>
           <Lines
             className="mt-6 text-[clamp(40px,5.6vw,92px)] font-medium leading-[0.95] tracking-[-0.05em]"
             lines={["One service.", <span className="text-mute">Done properly.</span>]}

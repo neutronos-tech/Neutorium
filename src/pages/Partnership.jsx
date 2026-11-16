@@ -16,7 +16,7 @@ export default function PartnershipPage() {
     <>
       <PageHeader
         label="Partnership"
-        lines={["A partnership,", "not a project.", <span className="text-mute">Ninety days to prove it.</span>]}
+        lines={["A partnership,", <span className="text-mute">not a project.</span>]}
         text="A partnership is our Digital Authority & Client Acquisition System: research, a website, premium films and an inquiry system, built together and measured from day one."
       >
         <div className="flex flex-wrap gap-6 text-sm md:justify-end">
@@ -31,7 +31,7 @@ export default function PartnershipPage() {
 
       <section className="wrap grid gap-16 py-24 md:grid-cols-12 md:py-40">
         <div className="md:col-span-5">
-          <p className="label text-mute">(04) What you bring</p>
+          <p className="label text-mute">What you bring</p>
           <Lines
             className="mt-6 text-[clamp(40px,5.6vw,92px)] font-medium leading-[0.95] tracking-[-0.05em]"
             lines={["A partnership", <span className="text-mute">runs both ways.</span>]}
@@ -49,7 +49,7 @@ export default function PartnershipPage() {
 
       <section className="wrap grid gap-16 border-t border-line py-24 md:grid-cols-12 md:py-40">
         <div className="md:col-span-5">
-          <p className="label text-mute">(05) Delivery guarantee</p>
+          <p className="label text-mute">Delivery guarantee</p>
           <Lines
             className="mt-6 text-[clamp(40px,5.6vw,92px)] font-medium leading-[0.95] tracking-[-0.05em]"
             lines={["Every asset,", <span className="text-mute">or we keep working.</span>]}
@@ -63,7 +63,7 @@ export default function PartnershipPage() {
 
       <section className="wrap grid gap-16 border-t border-line py-24 md:grid-cols-12 md:py-40">
         <div className="md:col-span-5">
-          <p className="label text-mute">(06) After Day 90</p>
+          <p className="label text-mute">After Day 90</p>
           <Lines
             className="mt-6 text-[clamp(40px,5.6vw,92px)] font-medium leading-[0.95] tracking-[-0.05em]"
             lines={["Embedded", <span className="text-mute">growth services.</span>]}
@@ -79,7 +79,7 @@ export default function PartnershipPage() {
 
       <section className="wrap grid gap-16 border-t border-line py-24 md:grid-cols-12 md:py-40">
         <div className="md:col-span-5">
-          <p className="label text-mute">(07) Questions</p>
+          <p className="label text-mute">Questions</p>
           <Lines
             className="mt-6 text-[clamp(40px,5.6vw,92px)] font-medium leading-[0.95] tracking-[-0.05em]"
             lines={["Asked often,", <span className="text-mute">answered plainly.</span>]}

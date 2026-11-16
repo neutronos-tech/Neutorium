@@ -30,6 +30,6 @@ export const SEATS_PER_INDUSTRY = 15;
 // Seat counts must always be real. Update `filled` whenever a partner signs or leaves.
 // Add an entry here when a new industry opens. status: "open" or "waitlist" (all seats filled).
 export const INDUSTRIES = [
-  { slug: "interior-design", name: "Interior design", status: "open", filled: 0 },
+  { slug: "interior-design", name: "Interior design", status: "open", filled: 4 },
 ];
 

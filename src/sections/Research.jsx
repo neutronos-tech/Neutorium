@@ -19,7 +19,7 @@ export default function Research({ n = "02" }) {
     <section id="research" className="wrap grid gap-16 py-24 md:grid-cols-12 md:py-40">
       <div className="md:col-span-5">
         <div className="md:sticky md:top-28">
-          <p className="label text-mute">({n}) Research</p>
+          <p className="label text-mute">Research</p>
           <Lines
             className="mt-6 text-[clamp(40px,5.6vw,92px)] font-medium leading-[0.95] tracking-[-0.05em]"
             lines={["Curiosity,", <span className="text-mute">with a method.</span>]}

@@ -8,7 +8,11 @@ export default function Cursor() {
     const el = ref.current;
     let x = innerWidth / 2, y = innerHeight / 2, tx = x, ty = y, raf;
     const move = (e) => { tx = e.clientX; ty = e.clientY; };
-    const over = (e) => el.classList.toggle("is-hover", !!e.target.closest("a, button"));
+    const over = (e) => {
+      const link = !!e.target.closest("a, button, [role=button]");
+      el.classList.toggle("is-hover", link);
+      el.classList.toggle("is-text", !link && !!e.target.closest("h1, h2, h3, p, li, dt, dd, em"));
+    };
     const loop = () => {
       x += (tx - x) * 0.18;
       y += (ty - y) * 0.18;
