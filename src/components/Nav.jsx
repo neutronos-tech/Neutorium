@@ -11,7 +11,14 @@ export const links = [
     href: "/industries",
     menu: [...INDUSTRY_PAGES.map((i) => [i.short, `/industries/${i.slug}`, i.need]), ["All industries", "/industries", "How we choose where to work, and the fifteen-seat rule."]],
   },
-  { label: "Services", href: "/services" },
+  {
+    label: "Services",
+    href: "/services",
+    menu: [
+      ["All services", "/services", "Hire one with a clear scope, or build your own package."],
+      ["Free business audit", "/free-audit", "A score out of 100 for your website, in under a minute."],
+    ],
+  },
   { label: "Partnership", href: "/partnership" },
   {
     label: "Research",
@@ -27,7 +34,7 @@ export const links = [
 ];
 
 const MotionLink = motion.create(Link);
-const isOn = (href, pathname) => pathname === href || pathname.startsWith(href + "/") || (href === "/research" && pathname.startsWith("/insights"));
+const isOn = (href, pathname) => pathname === href || pathname.startsWith(href + "/") || (href === "/research" && pathname.startsWith("/insights")) || (href === "/services" && pathname === "/free-audit");
 const ease = [0.16, 1, 0.3, 1];
 
 // A quiet bar held to the middle of the page. At the top it has no background at all; once the

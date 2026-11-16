@@ -139,10 +139,12 @@ export function Morph({ progress, auto = false, className = "" }) {
 // It turns slowly on its own and follows the pointer, so it can be looked at from any side.
 const HN = 2600;
 let hero = null;
-const HOLD = 4.4, MOVE = 2.0;
+const HOLD = 5.2, MOVE = 3.2;
 
-export function Shapeshifter({ className = "" }) {
-  const setup = useRef(() => ({ rx: 0, ry: 0 })).current;
+export function Shapeshifter({ className = "", onShape, onPick }) {
+  const tell = useRef(onShape);
+  tell.current = onShape;
+  const setup = useRef(() => ({ rx: 0, ry: 0, i: -1 })).current;
   const draw = useRef((ctx, st, w, h, t, mouse) => {
     if (!hero) hero = heroForms(HN);
     ctx.clearRect(0, 0, w, h);
@@ -150,20 +152,28 @@ export function Shapeshifter({ className = "" }) {
     const i = Math.floor(t / cycle) % hero.length;
     const k = ease(Math.min(1, Math.max(0, ((t % cycle) - HOLD) / MOVE)));
     const A = hero[i], B = hero[(i + 1) % hero.length];
+    if (st.i !== i) { st.i = i; tell.current?.(i); }
     // Pointer position, -1..1 across the canvas; 0 until the pointer has moved.
     const inside = mouse.x > -9000;
     const mx = inside ? Math.max(-1.5, Math.min(1.5, (mouse.x / w) * 2 - 1)) : 0;
     const my = inside ? Math.max(-1.5, Math.min(1.5, (mouse.y / h) * 2 - 1)) : 0;
-    st.ry += (Math.sin(t * 0.3) * 0.5 + mx * 1.1 - st.ry) * 0.05;
-    st.rx += (my * 0.6 - st.rx) * 0.05;
+    st.ry += (Math.sin(t * 0.22) * 0.2 + mx * 0.22 - st.ry) * 0.04;
+    st.rx += (my * 0.12 - st.rx) * 0.04;
     const cy_ = Math.cos(st.ry), sy_ = Math.sin(st.ry), cx_ = Math.cos(st.rx), sx_ = Math.sin(st.rx);
-    const s = Math.min(w, h) * 0.36;
-    const loose = (1 - Math.abs(k - 0.5) * 2) * 0.22;
+    const s0 = Math.min(w, h) * 0.4;
+    const loose = (1 - Math.abs(k - 0.5) * 2) * 0.03;
+    const breathe = 1 + Math.sin(t * 0.7) * 0.012;
+    const s = s0 * breathe;
+    const next = (i + 1) % hero.length;
+    const helix = (i === 3 ? 1 - k : 0) + (next === 3 ? k : 0);
+    const spin = t * 0.45, cs = Math.cos(spin), sn = Math.sin(spin);
     for (let n = 0; n < HN; n++) {
       const a = A[n], b = B[n];
-      let x = a[0] + (b[0] - a[0]) * k + Math.sin(t * 0.8 + n * 1.7) * (0.006 + loose * Math.sin(n * 12.9));
-      let y = a[1] + (b[1] - a[1]) * k + Math.cos(t * 0.9 + n * 2.3) * (0.006 + loose * Math.cos(n * 7.3));
-      let z = a[2] + (b[2] - a[2]) * k + Math.sin(t * 0.7 + n * 3.1) * (0.006 + loose * Math.sin(n * 4.1));
+      let x = a[0] + (b[0] - a[0]) * k + loose * Math.sin(n * 12.9);
+      let y = a[1] + (b[1] - a[1]) * k + loose * Math.cos(n * 7.3);
+      let z = a[2] + (b[2] - a[2]) * k + loose * Math.sin(n * 4.1);
+      // The helix turns on its own axis; the turn fades in and out with the shape, so nothing unwinds.
+      if (helix > 0) { const hx = x * cs + z * sn, hz = -x * sn + z * cs; x += (hx - x) * helix; z += (hz - z) * helix; }
       const x1 = x * cy_ + z * sy_, z1 = -x * sy_ + z * cy_;
       const y1 = y * cx_ - z1 * sx_, z2 = y * sx_ + z1 * cx_;
       const p = 3.2 / (3.2 - z2);
@@ -176,5 +186,5 @@ export function Shapeshifter({ className = "" }) {
     }
   }).current;
   const ref = useCanvas(draw, setup);
-  return <canvas ref={ref} aria-hidden="true" className={className} />;
+  return <canvas ref={ref} aria-hidden="true" className={className} onClick={onPick} />;
 }

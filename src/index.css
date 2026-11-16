@@ -71,9 +71,8 @@ button { cursor: pointer; }
   transition: transform 0.45s var(--ease-out-expo);
 }
 .cursor.is-hover .cursor-dot { transform: scale(5.5); opacity: 0.22; filter: blur(1px); }
-/* Over text the dot swells, softens and inverts what is under it. */
-.cursor.is-text { mix-blend-mode: difference; }
-.cursor.is-text .cursor-dot { transform: scale(3.6); filter: blur(1.5px); background: #fff; }
+/* Over text the dot swells and softens; it keeps its own colour. */
+.cursor.is-text .cursor-dot { transform: scale(3.2); opacity: 0.2; filter: blur(2px); }
 @media (pointer: coarse) { .cursor { display: none; } }
 
 .h-scroll-track { display: flex; flex-direction: column; gap: 16px; }
@@ -178,6 +177,14 @@ button { cursor: pointer; }
   background-size: 300% 100%;
   animation: sunbeam 24s ease-in-out infinite alternate;
 }
+
+/* The cat: slow breathing at rest, a soft shadow on the "floor" under it, and a cloud that
+   pops in when it speaks. */
+.pet-idle img { animation: petBreathe 2.6s ease-in-out infinite; transform-origin: 50% 100%; }
+@keyframes petBreathe { 50% { scale: 1 0.96; } }
+.pet-shadow { border-radius: 50%; background: radial-gradient(closest-side, rgb(31 10 11 / 0.32), transparent); }
+.pet-cloud { animation: petCloud 0.28s var(--ease-out-expo) both; }
+@keyframes petCloud { from { opacity: 0; scale: 0.9; } }
 
 /* Photographs rest in the brand's wine tone and wake into full colour on hover or focus. */
 .photo { position: relative; overflow: hidden; background: #7a4744; }

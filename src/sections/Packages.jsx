@@ -37,6 +37,12 @@ export default function Packages({ n = "04" }) {
                 </div>
                 <h3 className="mt-10 text-5xl tracking-[-0.045em]">{t.name}</h3>
                 <p className={"mt-4 leading-relaxed " + (f ? "text-paper/70" : "text-ink/60")}>{t.desc}</p>
+                {t.price && (
+                  <p className={"mt-6 border-t pt-5 " + (f ? "border-paper/15" : "border-line")}>
+                    <span className="block text-2xl tracking-[-0.03em]">{t.price}</span>
+                    {t.priceAbroad && <span className={"mt-1 block text-sm " + (f ? "text-paper/60" : "text-ink/55")}>International: {t.priceAbroad}</span>}
+                  </p>
+                )}
                 <ul className="mt-8 space-y-3 text-sm">
                   {t.items.map((it) => (
                     <li key={it} className={"flex gap-3 border-t pt-3 " + (f ? "border-paper/15" : "border-line")}>

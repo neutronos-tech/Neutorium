@@ -18,6 +18,10 @@ export const CMS_URL = (env.VITE_CMS_URL || "").replace(/\/$/, "");
 // Without either, the project builder opens a pre-filled email instead.
 export const FORM_ENDPOINT = env.VITE_FORM_ENDPOINT || "";
 
+// WhatsApp number in international format, digits only. Used for the "Chat on WhatsApp" links.
+export const WHATSAPP = "8801761981646";
+export const WHATSAPP_URL = "https://wa.me/" + WHATSAPP;
+
 export const SOCIALS = [
   ["Instagram", "#"],
   ["Facebook", "#"],

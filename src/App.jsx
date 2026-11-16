@@ -17,6 +17,8 @@ import NotFound from "./pages/NotFound";
 import Insights from "./pages/Insights";
 import Article from "./pages/Article";
 import Seo from "./components/Seo";
+import Pet from "./components/Pet";
+import Audit from "./pages/Audit";
 import Industries from "./pages/Industries";
 import Industry from "./pages/Industry";
 
@@ -60,6 +62,7 @@ export default function App() {
       <Loader onDone={done} />
       <Cursor />
       <Nav />
+      <Pet />
       <main key={pathname}>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -69,6 +72,7 @@ export default function App() {
           <Route path="/research" element={<Research />} />
           <Route path="/partnership" element={<Partnership />} />
           <Route path="/services" element={<Services />} />
+          <Route path="/free-audit" element={<Audit />} />
           <Route path="/services/:slug" element={<ServiceDetail />} />
           <Route path="/insights" element={<Insights />} />
           <Route path="/insights/:slug" element={<Article />} />

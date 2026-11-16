@@ -12,7 +12,7 @@ export const FAQS = {
   ],
   partnership: [
   ["Why only fifteen partners per industry?", "Fifteen is the most we can serve with real attention while the research still compounds. Monthly production capacity also limits how many new partners start each month. When seats are full, new companies join a waiting list."],
-  ["Why are fees not listed?", "The right package depends on your numbers. On a short call we look at your monthly inquiries and average project value together, then talk about fees. We never lower the price for the same scope; a smaller budget means a smaller package."],
+  ["What does a partnership cost?", "Foundation, the first 90 days, is ৳80,000 to ৳1,00,000 a month (from $2,000 for international clients). Growth starts from ৳1,50,000 a month (from $3,500). The exact fee follows the scope we agree; we never lower the price for the same scope, a smaller budget means a smaller package."],
   ["Do you guarantee clients or revenue?", "No. We guarantee delivery: every asset in the signed scope arrives within 90 days, or we keep working at no additional fee until it does. Results are tracked openly against your Day-14 baseline."],
   ["Is paid advertising included?", "Not in the first 90 days. First we learn which content works and make sure inquiries are handled well; then ads scale what is already proven. Ad spend is always separate."],
   ["Who owns the work?", "You do. Final videos, website content and your domain are yours after full payment. We only show the work in our portfolio with your written consent."],

@@ -73,8 +73,7 @@ jobs:
           expected=$(grep -o 'assets/index-[^"]*\.js' dist/index.html | head -1)
 
           for i in $(seq 1 10); do
-            if curl -fsS http://187.126.115.19/ \
-              -H 'Host: neutorium.com' | grep -Fq "$expected"; then
+            if curl -fsSL https://neutorium.com/ | grep -Fq "$expected"; then
               echo "VPS successfully serves $expected"
               exit 0
             fi

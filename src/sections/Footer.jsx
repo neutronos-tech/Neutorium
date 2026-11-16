@@ -3,10 +3,11 @@ import { motion } from "motion/react";
 import { scrollTo } from "../lib/smooth";
 import { useContent } from "../lib/content";
 import { TAGLINE } from "../data/home";
+import { WHATSAPP_URL } from "../data/site";
 
 const cols = [
   ["Explore", [["Home", "/"], ["Industries", "/industries"], ["About", "/about"], ["Research", "/research"], ["Partnership", "/partnership"], ["Services", "/services"], ["Insights", "/insights"]]],
-  ["Work with us", [["Start a project", "/start"], ["Packages", "/partnership#packages"], ["Single services", "/services"]]],
+  ["Work with us", [["Start a project", "/start"], ["Free business audit", "/free-audit"], ["Packages", "/partnership#packages"], ["Single services", "/services"]]],
 ];
 
 export default function Footer() {
@@ -20,6 +21,8 @@ export default function Footer() {
             Research-led partnership. Fifteen companies per industry, one industry at a time and growing.
           </p>
           <a href={"mailto:" + EMAIL} className="nav-link mt-4 inline-block">{EMAIL}</a>
+          <br />
+          <a href={WHATSAPP_URL} target="_blank" rel="noopener" className="nav-link mt-2 inline-block">Chat on WhatsApp</a>
         </div>
         {cols.map(([title, links]) => (
           <div key={title} className="md:col-span-2">
@@ -53,7 +56,10 @@ export default function Footer() {
 
       <div className="wrap label flex justify-between py-6 text-mute">
         <span>© {new Date().getFullYear()} Neutorium</span>
-        <button onClick={() => scrollTo(0)} className="nav-link">Back to top ↑</button>
+        <span className="flex gap-6">
+          <button onClick={() => window.dispatchEvent(new Event("pet:show"))} className="nav-link">Call the cat</button>
+          <button onClick={() => scrollTo(0)} className="nav-link">Back to top ↑</button>
+        </span>
       </div>
     </footer>
   );

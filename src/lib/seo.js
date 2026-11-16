@@ -59,6 +59,12 @@ const STATIC_PAGES = {
     crumb: "Partnership",
     faqKey: "partnership",
   },
+  "/free-audit": {
+    title: "Free Business Audit · Score Your Website Out of 100 · Neutorium",
+    description: "A free audit of your business website: a score out of 100, what is working, and the gaps costing you customers, in under a minute.",
+    h1: "How does your business look to a customer?",
+    crumb: "Free business audit",
+  },
   "/services": {
     title: "Services · Web Design, Development, UX/UI, Film, SEO and AEO · Neutorium",
     description: "Hire a single service or build your own package: market research, brand identity, web design and development, product and UX/UI design, premium reels, SEO, AEO and AI agents.",
@@ -277,7 +283,7 @@ export function headHtml(m, verify) {
 // Plain, semantic HTML of the page's key facts, placed inside #root at build time so crawlers
 // and answer engines that do not run JavaScript still read real content. React replaces it.
 export function bodyHtml(path, m, content) {
-  const nav = `<nav><a href="/">Home</a> <a href="/industries">Industries</a> <a href="/about">About</a> <a href="/research">Research</a> <a href="/partnership">Partnership</a> <a href="/services">Services</a> <a href="/insights">Insights</a> <a href="/start">Start a project</a></nav>`;
+  const nav = `<nav><a href="/">Home</a> <a href="/industries">Industries</a> <a href="/about">About</a> <a href="/research">Research</a> <a href="/partnership">Partnership</a> <a href="/services">Services</a> <a href="/free-audit">Free business audit</a> <a href="/insights">Insights</a> <a href="/start">Start a project</a></nav>`;
   const parts = [`<h1>${esc(m.h1)}</h1>`, `<p>${esc(m.description)}</p>`];
   const ul = (items) => `<ul>${items.map((i) => `<li>${i}</li>`).join("")}</ul>`;
 

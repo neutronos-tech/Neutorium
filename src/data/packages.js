@@ -1,18 +1,18 @@
-// Partnership packages. Fees are shared on a call after we understand the business,
-// never listed publicly, so the conversation starts from value instead of price.
+// Partnership packages. `price` is in taka for Bangladesh, `priceAbroad` in US dollars for
+// international clients. Both are starting points; the exact fee follows the agreed scope.
 export const PACKAGES = [
   {
     id: "foundation",
     name: "Foundation",
     tag: "Core system",
     term: "90 days",
+    price: "৳80,000 to ৳1,00,000 a month",
+    priceAbroad: "from $2,000 a month",
     desc: "The essential system for a company that needs a credible presence and a working way to capture inquiries.",
     items: [
       "Research & positioning",
       "Launch website, 5 to 7 pages",
-      "90-day content calendar",
       "8 premium reels",
-      "2 long-form films",
       "Inquiry & follow-up system",
       "Monthly report",
     ],
@@ -22,6 +22,8 @@ export const PACKAGES = [
     name: "Growth",
     tag: "Full system",
     term: "90 days",
+    price: "From ৳1,50,000 a month",
+    priceAbroad: "from $3,500 a month",
     featured: true,
     desc: "The complete Digital Authority & Client Acquisition System: everything working together, measured from day one.",
     items: [
@@ -38,6 +40,7 @@ export const PACKAGES = [
     name: "Embedded",
     tag: "Long-term partnership",
     term: "After Day 90",
+    price: "Scoped from your first 90 days",
     desc: "For partners who have completed the first 90 days. Advanced growth services scoped from real results.",
     items: [
       "SEO & AEO",

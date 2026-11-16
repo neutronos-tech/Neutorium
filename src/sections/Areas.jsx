@@ -87,11 +87,18 @@ export default function Areas() {
                       onBlur={() => setPaused(false)}
                       onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && setActive(i)}
                       className="cursor-pointer outline-none"
+                      style={{ transform: on ? "translateY(-8px)" : "none", transition: "transform 0.9s cubic-bezier(0.16,1,0.3,1)" }}
                     >
                       <rect x={sx(i) - 6} y={sy(i) - 18} width={W + 30} height="40" rx="20" fill="var(--color-ember)" filter="url(#stair-glow)" style={{ opacity: on ? 0.9 : 0, transition: "opacity 1s" }} />
                       {i === AREAS.length - 1 && <path d={side(i)} fill="var(--color-paper)" fillOpacity={on ? 0.55 : 0.05} stroke="var(--color-paper)" strokeOpacity="0.3" style={{ transition: "fill-opacity .8s" }} />}
                       <path d={front(i)} fill="var(--color-paper)" fillOpacity={on ? 0.92 : 0.04} stroke="var(--color-paper)" strokeOpacity={on ? 1 : 0.3} style={{ transition: "fill-opacity .8s, stroke-opacity .8s" }} />
                       <path d={tread(i)} fill={on ? "url(#tread-lit)" : "var(--color-paper)"} fillOpacity={on ? 1 : 0.1} stroke="var(--color-paper)" strokeOpacity={on ? 0.9 : 0.3} style={{ transition: "fill-opacity .8s" }} />
+                      {on && !still && built && [0, 1, 2, 3].map((k) => (
+                        <circle key={k} r={1.4 + (k % 2) * 0.8} cx={sx(i) + 16 + k * 20} cy={sy(i) - 6} fill="#fff" opacity="0">
+                          <animate attributeName="cy" values={`${sy(i) - 6};${sy(i) - 58}`} dur="2.4s" begin={k * 0.45 + "s"} repeatCount="indefinite" />
+                          <animate attributeName="opacity" values="0;0.9;0" dur="2.4s" begin={k * 0.45 + "s"} repeatCount="indefinite" />
+                        </circle>
+                      ))}
                       <text x={sx(i) + W / 2} y={sy(i) + 28} textAnchor="middle" fontFamily="var(--font-mono)" fontSize="12" fill={on ? "var(--color-night)" : "var(--color-paper)"} fillOpacity={on ? 1 : 0.6} style={{ transition: "fill .8s" }}>
                         0{i + 1}
                       </text>

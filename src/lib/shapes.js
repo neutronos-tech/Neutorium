@@ -115,7 +115,7 @@ export function processForms(n) {
 }
 
 // The shapes the hero cloud passes through, as [x, y, z] points (y up), each with n points:
-// a brain, a neuron, a network, a strand of DNA and a growth chart.
+// a brain, a neuron, a network, a strand of DNA and a blood cell.
 export function heroForms(n) {
   const r = seeded(33);
   const flat = processForms(n);
@@ -136,22 +136,18 @@ export function heroForms(n) {
   }
   dna = dna.slice(0, n);
 
-  // Five rising bars and an arrow climbing over them.
-  let chart = [];
-  const heights = [0.3, 0.48, 0.66, 0.9, 1.2];
-  heights.forEach((h, i) => {
-    const x0 = -0.92 + i * 0.36;
-    for (let k = 0; k < Math.round(n * 0.15); k++) {
-      chart.push([x0 + r() * 0.24, -0.72 + r() * h, (r() - 0.5) * 0.2]);
-    }
-  });
-  while (chart.length < n) {
-    const t = r();
-    if (t < 0.8) chart.push([-0.98 + t * 2.3, -0.2 + t * 1.25 + (r() - 0.5) * 0.02, 0.16]);
-    else if (r() < 0.5) chart.push([0.86 - (t - 0.8) * 1.3, 0.8 + (r() - 0.5) * 0.02, 0.16]);
-    else chart.push([0.86, 0.8 - (t - 0.8) * 1.3 + (r() - 0.5) * 0.02, 0.16]);
+  // A red blood cell: a disc that is thin in the middle and thick at the rim, seen at an angle.
+  const cell = [];
+  const tilt = 0.95, ct = Math.cos(tilt), st = Math.sin(tilt);
+  for (let i = 0; i < n; i++) {
+    const rim = r() < 0.3;
+    const rad = rim ? 0.86 + (r() - 0.5) * 0.05 : Math.sqrt(r()) * 0.86;
+    const a = r() * Math.PI * 2;
+    const half = 0.07 + 0.2 * Math.pow(rad / 0.86, 2.2);
+    const zz = rim ? (r() * 2 - 1) * half : (r() < 0.5 ? -1 : 1) * half;
+    const x = Math.cos(a) * rad, y = Math.sin(a) * rad;
+    cell.push([x, y * ct - zz * st, y * st + zz * ct]);
   }
-  chart = chart.slice(0, n);
 
-  return [brainPoints(n, 7), neuron, net, dna, chart];
+  return [brainPoints(n, 7), neuron, net, dna, cell];
 }

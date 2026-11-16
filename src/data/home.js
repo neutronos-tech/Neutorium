@@ -7,6 +7,14 @@ export const TAGLINE = "Research. Strategy. Engineering.";
 export const HERO = {
   lines: [["People decide"], [["before they", "know why."], "serif"]],
   line: "We study how. Then we build your brand around it.",
+  // What the cloud of points becomes, in order, and what each shape stands for (shown when clicked).
+  shapes: [
+    ["Brain", "Every purchase starts here. Most of a decision is made before a person can explain it."],
+    ["Neuron", "One signal: a single impression of your brand. A colour, a word, a feeling."],
+    ["Network", "Repeated signals link up. That is how a brand becomes familiar, and then trusted."],
+    ["DNA", "What makes your business itself. We find it before we design anything."],
+    ["Cell", "The smallest living unit. A brand is built the same way: small things, repeated until they are alive."],
+  ],
 };
 
 export const MARQUEE = ["Research", "Strategy", "Brand", "Content", "Websites", "Search", "Sales systems", "Automation", "Software"];

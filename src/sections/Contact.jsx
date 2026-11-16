@@ -1,6 +1,7 @@
 import { Lines } from "../components/Reveal";
 import Magnetic from "../components/Magnetic";
 import { useContent } from "../lib/content";
+import { WHATSAPP_URL } from "../data/site";
 
 export default function Contact({ n = "07" }) {
   const { email: EMAIL } = useContent();
@@ -17,7 +18,10 @@ export default function Contact({ n = "07" }) {
             Choose a partnership package or put together your own set of services in the project builder.
             We reply within two working days.
           </p>
-          <a href={"mailto:" + EMAIL} className="nav-link mt-6 inline-block text-lg">{EMAIL}</a>
+          <div className="mt-6 flex flex-wrap items-center gap-x-8 gap-y-3 text-lg">
+            <a href={"mailto:" + EMAIL} className="nav-link py-2">{EMAIL}</a>
+            <a href={WHATSAPP_URL} target="_blank" rel="noopener" className="nav-link py-2">Chat on WhatsApp</a>
+          </div>
         </div>
         <Magnetic to="/start">Start a project</Magnetic>
       </div>
